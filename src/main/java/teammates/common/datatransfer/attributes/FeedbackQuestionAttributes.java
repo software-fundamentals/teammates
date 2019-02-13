@@ -323,96 +323,97 @@ public class FeedbackQuestionAttributes extends EntityAttributes<FeedbackQuestio
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        //+1 Complexity
+        if (this == obj) { //+1 Complexity
             return true;
         }
 
-        if (obj == null) {
+        if (obj == null) { //+1 Complexity
             return false;
         }
 
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass()) { //+1 Complexity
             return false;
         }
 
         FeedbackQuestionAttributes other = (FeedbackQuestionAttributes) obj;
 
-        if (courseId == null) {
-            if (other.courseId != null) {
+        if (courseId == null) { //+1 Complexity
+            if (other.courseId != null) { //+1 Complexity
                 return false;
             }
-        } else if (!courseId.equals(other.courseId)) {
+        } else if (!courseId.equals(other.courseId)) { //+1 Complexity
             return false;
         }
 
-        if (feedbackSessionName == null) {
-            if (other.feedbackSessionName != null) {
+        if (feedbackSessionName == null) { //+1 Complexity
+            if (other.feedbackSessionName != null) { //+1 Complexity
                 return false;
             }
-        } else if (!feedbackSessionName.equals(other.feedbackSessionName)) {
+        } else if (!feedbackSessionName.equals(other.feedbackSessionName)) { //+1 Complexity
             return false;
         }
 
-        if (giverType != other.giverType) {
+        if (giverType != other.giverType) { //+1 Complexity
             return false;
         }
 
-        if (numberOfEntitiesToGiveFeedbackTo != other.numberOfEntitiesToGiveFeedbackTo) {
+        if (numberOfEntitiesToGiveFeedbackTo != other.numberOfEntitiesToGiveFeedbackTo) { //+1 Complexity
             return false;
         }
 
-        if (questionNumber != other.questionNumber) {
+        if (questionNumber != other.questionNumber) { //+1 Complexity
             return false;
         }
 
-        if (questionMetaData == null) {
-            if (other.questionMetaData != null) {
+        if (questionMetaData == null) { //+1 Complexity
+            if (other.questionMetaData != null) { //+1 Complexity
                 return false;
             }
-        } else if (!questionMetaData.equals(other.questionMetaData)) {
+        } else if (!questionMetaData.equals(other.questionMetaData)) { //+1 Complexity
             return false;
         }
 
-        if (questionDescription == null) {
-            if (other.questionDescription != null) {
+        if (questionDescription == null) { //+1 Complexity
+            if (other.questionDescription != null) { //+1 Complexity
                 return false;
             }
-        } else if (!questionDescription.equals(other.questionDescription)) {
+        } else if (!questionDescription.equals(other.questionDescription)) { //+1 Complexity
             return false;
         }
 
-        if (questionType != other.questionType) {
+        if (questionType != other.questionType) { //+1 Complexity
             return false;
         }
 
-        if (recipientType != other.recipientType) {
+        if (recipientType != other.recipientType) { //+1 Complexity
             return false;
         }
 
-        if (showGiverNameTo == null) {
-            if (other.showGiverNameTo != null) {
+        if (showGiverNameTo == null) { //+1 Complexity
+            if (other.showGiverNameTo != null) { //+1 Complexity
                 return false;
             }
-        } else if (!showGiverNameTo.equals(other.showGiverNameTo)) {
+        } else if (!showGiverNameTo.equals(other.showGiverNameTo)) { //+1 Complexity
             return false;
         }
 
-        if (showRecipientNameTo == null) {
-            if (other.showRecipientNameTo != null) {
+        if (showRecipientNameTo == null) { //+1 Complexity
+            if (other.showRecipientNameTo != null) { //+1 Complexity
                 return false;
             }
-        } else if (!showRecipientNameTo.equals(other.showRecipientNameTo)) {
+        } else if (!showRecipientNameTo.equals(other.showRecipientNameTo)) { //+1 Complexity
             return false;
         }
 
-        if (showResponsesTo == null) {
-            if (other.showResponsesTo != null) {
+        if (showResponsesTo == null) { //+1 Complexity
+            if (other.showResponsesTo != null) { //+1 Complexity
                 return false;
             }
-        } else if (!showResponsesTo.equals(other.showResponsesTo)) {
+        } else if (!showResponsesTo.equals(other.showResponsesTo)) { //+1 Complexity
             return false;
         }
-
+        //Total complexity: 30
         return true;
     }
 
