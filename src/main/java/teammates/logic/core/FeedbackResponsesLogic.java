@@ -285,59 +285,59 @@ public final class FeedbackResponsesLogic {
                 userEmail, role, isGiverName, roster);
     }
 
-    private boolean isFeedbackParticipantNameVisibleToUser(
+    private boolean isFeedbackParticipantNameVisibleToUser(                             // 1
             FeedbackQuestionAttributes question, FeedbackResponseAttributes response,
             String userEmail, UserRole role, boolean isGiverName, CourseRoster roster) {
         List<FeedbackParticipantType> showNameTo = isGiverName
                                                  ? question.showGiverNameTo
                                                  : question.showRecipientNameTo;
-        for (FeedbackParticipantType type : showNameTo) {
+        for (FeedbackParticipantType type : showNameTo) {                               // 2
             switch (type) {
-            case INSTRUCTORS:
-                if (roster.getInstructorForEmail(userEmail) != null && role == UserRole.INSTRUCTOR) {
+            case INSTRUCTORS:         // 3
+                if (roster.getInstructorForEmail(userEmail) != null && role == UserRole.INSTRUCTOR) { // 4
                     return true;
                 }
                 break;
-            case OWN_TEAM_MEMBERS:
-            case OWN_TEAM_MEMBERS_INCLUDING_SELF:
+            case OWN_TEAM_MEMBERS:          // 5
+            case OWN_TEAM_MEMBERS_INCLUDING_SELF:   // 6
                 // Refers to Giver's Team Members
-                if (roster.isStudentsInSameTeam(response.giver, userEmail)) {
+                if (roster.isStudentsInSameTeam(response.giver, userEmail)) { // 7
                     return true;
                 }
                 break;
-            case RECEIVER:
+            case RECEIVER:  // 8
                 // Response to team
-                if (question.recipientType.isTeam()) {
-                    if (roster.isStudentInTeam(userEmail, response.recipient)) {
+                if (question.recipientType.isTeam()) {      // 9
+                    if (roster.isStudentInTeam(userEmail, response.recipient)) { // 10
                         // this is a team name
                         return true;
                     }
                     break;
                     // Response to individual
-                } else if (response.recipient.equals(userEmail)) {
+                } else if (response.recipient.equals(userEmail)) {  // 11
                     return true;
                 } else {
                     break;
                 }
-            case RECEIVER_TEAM_MEMBERS:
+            case RECEIVER_TEAM_MEMBERS:                          // 12
                 // Response to team; recipient = teamName
-                if (question.recipientType.isTeam()) {
-                    if (roster.isStudentInTeam(userEmail, response.recipient)) {
+                if (question.recipientType.isTeam()) {              // 13
+                    if (roster.isStudentInTeam(userEmail, response.recipient)) {    // 14
                         // this is a team name
                         return true;
                     }
                     break;
-                } else if (roster.isStudentsInSameTeam(response.recipient, userEmail)) {
+                } else if (roster.isStudentsInSameTeam(response.recipient, userEmail)) {    // 15
                     // Response to individual
                     return true;
                 }
                 break;
-            case STUDENTS:
-                if (roster.isStudentInCourse(userEmail)) {
+            case STUDENTS:          // 16
+                if (roster.isStudentInCourse(userEmail)) {  // 17
                     return true;
                 }
                 break;
-            default:
+            default:    // 18
                 Assumption.fail("Invalid FeedbackParticipantType for showNameTo in "
                                 + "FeedbackResponseLogic.isFeedbackParticipantNameVisibleToUser()");
                 break;
