@@ -20,6 +20,7 @@ My own calculations, and the lizard tool, found the cyclomatic complexity to be 
 Eight new branches are created for the eight recipientTypes checked (SELF, STUDENTS, INSTRUCTORS, etc) in the switch statement. In addition, most cases include a foreach loop and an if statement. Several of these cases do essentially the same thing: loop through a recipient list and add the recipient to "recipients" if the recipient isn't the question giver. So there's potential to reduce the complexity of the function, for example by creating a helper function.
 
 ## isResponseVisibleForUser
+### Location of function
 The function can be found [here](https://github.com/software-fundamentals/teammates/blob/master/src/main/java/teammates/logic/core/FeedbackSessionsLogic.java)
 
 ### Description
