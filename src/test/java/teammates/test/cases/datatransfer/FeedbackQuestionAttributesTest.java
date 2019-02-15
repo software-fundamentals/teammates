@@ -533,6 +533,8 @@ public class FeedbackQuestionAttributesTest extends BaseAttributesTest {
         //Test that two objects that have all equal parameters are equal
         FeedbackQuestionAttributes questionAttributes2 = getNewFeedbackQuestionAttributes();
         assertTrue(questionAttributes.equals(questionAttributes2));
+
+        questionAttributes.testEqualsCoverage();
     }
 
     private static class FeedbackQuestionAttributesWithModifiableTimestamp extends FeedbackQuestionAttributes {

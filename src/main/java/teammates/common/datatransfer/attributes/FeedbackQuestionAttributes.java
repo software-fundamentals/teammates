@@ -44,6 +44,7 @@ public class FeedbackQuestionAttributes extends EntityAttributes<FeedbackQuestio
     protected transient Instant createdAt;
     protected transient Instant updatedAt;
     private String feedbackQuestionId;
+    private boolean[] equalsCoverage = new boolean[28];
 
     protected FeedbackQuestionAttributes() {
         //attributes to be built by Builder
@@ -321,96 +322,134 @@ public class FeedbackQuestionAttributes extends EntityAttributes<FeedbackQuestio
         return result;
     }
 
+    public void testEqualsCoverage() {
+        int covered = 0;
+        for (int i = 0; i < equalsCoverage.length; i++) {
+            if (equalsCoverage[i])
+                covered++;
+        }
+        System.out.println("Covered branches: " + covered + " total branches: " + equalsCoverage.length);
+    }
+
     @Override
     public boolean equals(Object obj) {
         //+1 Complexity
         if (this == obj) { //+1 Complexity
+            equalsCoverage[0] = true;
             return true;
         }
 
         if (obj == null) { //+1 Complexity
+            equalsCoverage[1] = true;
             return false;
         }
 
         if (getClass() != obj.getClass()) { //+1 Complexity
+            equalsCoverage[2] = true;
             return false;
         }
 
         FeedbackQuestionAttributes other = (FeedbackQuestionAttributes) obj;
 
         if (courseId == null) { //+1 Complexity
+            equalsCoverage[3] = true;
             if (other.courseId != null) { //+1 Complexity
+                equalsCoverage[4] = true;
                 return false;
             }
         } else if (!courseId.equals(other.courseId)) { //+1 Complexity
+            equalsCoverage[5] = true;
             return false;
         }
 
         if (feedbackSessionName == null) { //+1 Complexity
+            equalsCoverage[6] = true;
             if (other.feedbackSessionName != null) { //+1 Complexity
+                equalsCoverage[7] = true;
                 return false;
             }
         } else if (!feedbackSessionName.equals(other.feedbackSessionName)) { //+1 Complexity
+            equalsCoverage[8] = true;
             return false;
         }
 
         if (giverType != other.giverType) { //+1 Complexity
+            equalsCoverage[9] = true;
             return false;
         }
 
         if (numberOfEntitiesToGiveFeedbackTo != other.numberOfEntitiesToGiveFeedbackTo) { //+1 Complexity
+            equalsCoverage[10] = true;
             return false;
         }
 
         if (questionNumber != other.questionNumber) { //+1 Complexity
+            equalsCoverage[11] = true;
             return false;
         }
 
         if (questionMetaData == null) { //+1 Complexity
+            equalsCoverage[12] = true;
             if (other.questionMetaData != null) { //+1 Complexity
+                equalsCoverage[13] = true;
                 return false;
             }
         } else if (!questionMetaData.equals(other.questionMetaData)) { //+1 Complexity
+            equalsCoverage[14] = true;
             return false;
         }
 
         if (questionDescription == null) { //+1 Complexity
+            equalsCoverage[15] = true;
             if (other.questionDescription != null) { //+1 Complexity
+                equalsCoverage[16] = true;
                 return false;
             }
         } else if (!questionDescription.equals(other.questionDescription)) { //+1 Complexity
+            equalsCoverage[17] = true;
             return false;
         }
 
         if (questionType != other.questionType) { //+1 Complexity
+            equalsCoverage[18] = true;
             return false;
         }
 
         if (recipientType != other.recipientType) { //+1 Complexity
+            equalsCoverage[19] = true;
             return false;
         }
 
         if (showGiverNameTo == null) { //+1 Complexity
+            equalsCoverage[20] = true;
             if (other.showGiverNameTo != null) { //+1 Complexity
+                equalsCoverage[21] = true;
                 return false;
             }
         } else if (!showGiverNameTo.equals(other.showGiverNameTo)) { //+1 Complexity
+            equalsCoverage[22] = true;
             return false;
         }
 
         if (showRecipientNameTo == null) { //+1 Complexity
+            equalsCoverage[23] = true;
             if (other.showRecipientNameTo != null) { //+1 Complexity
+                equalsCoverage[24] = true;
                 return false;
             }
         } else if (!showRecipientNameTo.equals(other.showRecipientNameTo)) { //+1 Complexity
+            equalsCoverage[25] = true;
             return false;
         }
 
         if (showResponsesTo == null) { //+1 Complexity
+            equalsCoverage[26] = true;
             if (other.showResponsesTo != null) { //+1 Complexity
+                equalsCoverage[27] = true;
                 return false;
             }
         } else if (!showResponsesTo.equals(other.showResponsesTo)) { //+1 Complexity
+            equalsCoverage[28] = true;
             return false;
         }
         //Total complexity: 30
