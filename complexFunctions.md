@@ -1,12 +1,21 @@
 # High complexity functions documentation
 
-## Function name
-### Location of Function
+## isFeedbackParticipantNameVisibleToUserCoverage
+### Location of function
+The function can be found [here](https://github.com/software-fundamentals/teammates/blob/master/src/main/java/teammates/logic/core/FeedbackResponsesLogic.java)
 
 ### Description
+The function evaluates for an array of feedback participants whether their names should be presented or not to the user.
+Depending on the participants 'types' e.g. instructor, teammate, student, this function works through a switch statement
+were the types are the different cases. Moreover within these cases, the function does a few if statements as a final
+verification before deciding whether to present the participant name to the user or not.
 
 ### Complexity
-
+The Lizard tool as well as our by hand calculations resulted in a complexity of 18. The complexity can largely be explained
+due to the multitude of switch cases for every possible type (7 to be exact). The majority of the rest emerge from
+different if statements within the cases. The complexity can be reduced by extracting code from within these statements
+to helper functions which would lower the branching. However, the code itself is quite clean and not very messy, thus
+refactoring the code in this way could arguably lead to a function that might be harder to understand from the get-go.
 
 ## getRecipientsForQuestion
 ### Location of function
@@ -29,10 +38,9 @@ The function checks if a response to a specific question is visible to a particu
 ### Complexity
 The lizard tool found a cyclomatic complexity of 24 due to the fact that there is 8 statements and 14 boolean conditions making it a complex function. Since a lot of the if statements are nested and got many boolean conditions, it's difficault to get an overview of the function. I do believe that everything that is checked has to be checked but I think that it should be separated into different functions. For instance, if the user is an instructor, another function that checks all the instructor related variables could be called.
 
-# High complexity functions documentation
-
 ## validateQuestionDetails
-The function can be found at https://github.com/software-fundamentals/teammates/blob/master/src/main/java/teammates/common/datatransfer/questions/FeedbackMcqQuestionDetails.java
+### Location of function
+The function can be found [here](https://github.com/software-fundamentals/teammates/blob/master/src/main/java/teammates/common/datatransfer/questions/FeedbackMcqQuestionDetails.java)
 
 ### Description
 The purpose of this function is to validate the questions provided by the participants during the feedback.
