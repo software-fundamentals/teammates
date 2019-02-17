@@ -293,6 +293,8 @@ public class FeedbackMcqQuestionDetailsTest extends BaseTestCase {
         assertEquals(1, errors.size());
         assertEquals(Const.FeedbackQuestion.MCQ_ERROR_NOT_ENOUGH_CHOICES
                 + Const.FeedbackQuestion.MCQ_MIN_NUM_OF_CHOICES + ".", errors.get(0));
+
+        mcqDetails.testValidateQuestionDetailsCoverage();   // Covered branches: 3 of 9
     }
 
     @Test

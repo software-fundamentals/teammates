@@ -39,6 +39,7 @@ public class FeedbackMcqQuestionDetails extends FeedbackQuestionDetails {
     private List<String> mcqChoices;
     private boolean otherEnabled;
     private FeedbackParticipantType generateOptionsFor;
+    private boolean[] validateQuestionDetailsCoverage = new boolean[9];
 
     public FeedbackMcqQuestionDetails() {
         super(FeedbackQuestionType.MCQ);
@@ -591,12 +592,23 @@ public class FeedbackMcqQuestionDetails extends FeedbackQuestionDetails {
                + Const.FeedbackQuestionTypeNames.MCQ + "</a></li>";
     }
 
+    public void testValidateQuestionDetailsCoverage() {
+        int covered = 0;
+        for (int i = 0; i < validateQuestionDetailsCoverage.length; i++) {
+            if (validateQuestionDetailsCoverage[i])
+                covered++;
+        }
+        System.out.println("Covered branches: " + covered + " total branches: " + validateQuestionDetailsCoverage.length);
+    }
+
     @Override
     public List<String> validateQuestionDetails(String courseId) {
         List<String> errors = new ArrayList<>();                // 1
         if (generateOptionsFor == FeedbackParticipantType.NONE) {   // 2
+            validateQuestionDetailsCoverage[0] = true;
 
             if (numOfMcqChoices < Const.FeedbackQuestion.MCQ_MIN_NUM_OF_CHOICES) { // 3
+                validateQuestionDetailsCoverage[1] = true;
                 errors.add(Const.FeedbackQuestion.MCQ_ERROR_NOT_ENOUGH_CHOICES
                         + Const.FeedbackQuestion.MCQ_MIN_NUM_OF_CHOICES + ".");
             }
@@ -606,36 +618,43 @@ public class FeedbackMcqQuestionDetails extends FeedbackQuestionDetails {
             // the mcqChoices.size() will be greater than mcqWeights.size(),
             // in that case, trigger this error.
             if (hasAssignedWeights && mcqChoices.size() != mcqWeights.size()) {     // 4, 5
+                validateQuestionDetailsCoverage[2] = true;
                 errors.add(Const.FeedbackQuestion.MCQ_ERROR_INVALID_WEIGHT);
             }
 
             // If weights are not enabled, but weight list is not empty or otherWeight is not 0
             // In that case, trigger this error.
             if (!hasAssignedWeights && (!mcqWeights.isEmpty() || mcqOtherWeight != 0)) {   // 6, 7, 8
+                validateQuestionDetailsCoverage[3] = true;
                 errors.add(Const.FeedbackQuestion.MCQ_ERROR_INVALID_WEIGHT);
             }
 
             // If weights are enabled, but other option is disabled, and mcqOtherWeight is not 0
             // In that case, trigger this error.
             if (hasAssignedWeights && !otherEnabled && mcqOtherWeight != 0) {   // 9, 10, 11
+                validateQuestionDetailsCoverage[4] = true;
                 errors.add(Const.FeedbackQuestion.MCQ_ERROR_INVALID_WEIGHT);
             }
 
             // If weights are enabled, and any of the weights have negative value,
             // trigger this error.
             if (hasAssignedWeights && !mcqWeights.isEmpty()) {         // 12, 13
+                validateQuestionDetailsCoverage[5] = true;
                 for (double weight : mcqWeights) {             // 14
                     if (weight < 0) {       // 15
+                        validateQuestionDetailsCoverage[6] = true;
                         errors.add(Const.FeedbackQuestion.MCQ_ERROR_INVALID_WEIGHT);
                     }
                 }
                 // If 'Other' option is enabled, and other weight has negative value,
                 // trigger this error.
                 if (otherEnabled && mcqOtherWeight < 0) {           // 16, 17
+                    validateQuestionDetailsCoverage[7] = true;
                     errors.add(Const.FeedbackQuestion.MCQ_ERROR_INVALID_WEIGHT);
                 }
             }
         }
+        validateQuestionDetailsCoverage[8] = true;
         //TODO: check that mcq options do not repeat. needed?
 
         return errors;
