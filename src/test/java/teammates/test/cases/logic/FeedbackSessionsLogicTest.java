@@ -2,23 +2,13 @@ package teammates.test.cases.logic;
 
 import java.time.Instant;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import teammates.common.datatransfer.DataBundle;
-import teammates.common.datatransfer.FeedbackParticipantType;
-import teammates.common.datatransfer.FeedbackSessionDetailsBundle;
-import teammates.common.datatransfer.FeedbackSessionQuestionsBundle;
-import teammates.common.datatransfer.FeedbackSessionResultsBundle;
-import teammates.common.datatransfer.FeedbackSessionStats;
+import teammates.common.datatransfer.*;
 import teammates.common.datatransfer.attributes.CourseAttributes;
 import teammates.common.datatransfer.attributes.FeedbackQuestionAttributes;
 import teammates.common.datatransfer.attributes.FeedbackResponseAttributes;
@@ -1600,6 +1590,38 @@ public class FeedbackSessionsLogicTest extends BaseLogicTest {
         assertTrue(frLogic.getFeedbackResponsesForSession(feedbackSessionName2, courseId).isEmpty());
         assertTrue(frcLogic.getFeedbackResponseCommentForSession(courseId, feedbackSessionName1).isEmpty());
         assertTrue(frcLogic.getFeedbackResponseCommentForSession(courseId, feedbackSessionName2).isEmpty());
+    }
+
+    @Test
+    public void testIsResponseVisibleForUser() {
+        StudentAttributes student = dataBundle.students.get("student1InCourse1");
+        UserRole studentRole = UserRole.STUDENT;
+        UserRole instructorRole = UserRole.INSTRUCTOR;
+        InstructorAttributes instructor = dataBundle.instructors.get("instructor1fCourse1");
+        //Visible to instructors and sent by student1InCourse1 to student1InCourse1
+        FeedbackQuestionAttributes question1 = getQuestionFromDatastore("qn1InSession1InCourse1");
+        FeedbackResponseAttributes response1 = getResponseFromDatastore("response1ForQ1S1C1", dataBundle);
+
+        //Visible to students and sent by student2InCourse1 to student1InCourse1
+        FeedbackQuestionAttributes question2 = getQuestionFromDatastore("qn2InSession1InCourse1");
+        FeedbackResponseAttributes response2 = getResponseFromDatastore("response1ForQ2S1C1", dataBundle);
+
+        Set<String> emails = new HashSet<>();
+        emails.add(student.email);
+
+        //Should return true since the student sent this response
+        boolean result1 = fsLogic.isResponseVisibleForUser(student.email, studentRole, student, emails, response1, question1, instructor);
+        assertEquals(result1, true);
+
+        //Should return true since the role is an instructor and the response is visible to instructors.
+        boolean result2 = fsLogic.isResponseVisibleForUser(student.email, instructorRole, student, emails, response1, question1, instructor);
+        assertEquals(result2, true);
+
+        //Should return true since the response was sent to the student
+        boolean result3 = fsLogic.isResponseVisibleForUser(student.email, studentRole, student, emails, response2, question2, instructor);
+        assertEquals(result3, true);
+
+        fsLogic.testVisibleResponseCoverage();
     }
 
 }
