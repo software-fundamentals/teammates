@@ -37,3 +37,20 @@ The function checks if a response to a specific question is visible to a particu
 
 ### Complexity
 The lizard tool found a cyclomatic complexity of 24 due to the fact that there is 8 statements and 14 boolean conditions making it a complex function. Since a lot of the if statements are nested and got many boolean conditions, it's difficault to get an overview of the function. I do believe that everything that is checked has to be checked but I think that it should be separated into different functions. For instance, if the user is an instructor, another function that checks all the instructor related variables could be called.
+
+## validateQuestionDetails
+### Location of function
+The function can be found [here](https://github.com/software-fundamentals/teammates/blob/master/src/main/java/teammates/common/datatransfer/questions/FeedbackMcqQuestionDetails.java)
+
+### Description
+The purpose of this function is to validate the questions provided by the participants during the feedback.
+In essence the function goes through the potential errors that can arise when creating a question as such. Using
+and array called 'Errors', every invalid input the functions finds results in an error message that are added to this
+array and then returned. If the error array has any such messages in it - it will be handled in another function.
+
+### Complexity
+The Lizard tool as well as our by hand calculations resulted in a complexity of 17. The complexity arises to the multitude
+of if-statements in the function. Also due to the several uses of && and || operators that count towards the CCN.
+The if-statements could be refactored in order to reduce the complexity, for example, the if statements that concerns the
+case when the variable 'weights' are enabled could belong to one helper function and when 'weights' are disable could belong
+to another.
