@@ -593,10 +593,10 @@ public class FeedbackMcqQuestionDetails extends FeedbackQuestionDetails {
 
     @Override
     public List<String> validateQuestionDetails(String courseId) {
-        List<String> errors = new ArrayList<>();
-        if (generateOptionsFor == FeedbackParticipantType.NONE) {
+        List<String> errors = new ArrayList<>();                // 1
+        if (generateOptionsFor == FeedbackParticipantType.NONE) {   // 2
 
-            if (numOfMcqChoices < Const.FeedbackQuestion.MCQ_MIN_NUM_OF_CHOICES) {
+            if (numOfMcqChoices < Const.FeedbackQuestion.MCQ_MIN_NUM_OF_CHOICES) { // 3
                 errors.add(Const.FeedbackQuestion.MCQ_ERROR_NOT_ENOUGH_CHOICES
                         + Const.FeedbackQuestion.MCQ_MIN_NUM_OF_CHOICES + ".");
             }
@@ -605,33 +605,33 @@ public class FeedbackMcqQuestionDetails extends FeedbackQuestionDetails {
             // If user enters an invalid weight for a valid choice,
             // the mcqChoices.size() will be greater than mcqWeights.size(),
             // in that case, trigger this error.
-            if (hasAssignedWeights && mcqChoices.size() != mcqWeights.size()) {
+            if (hasAssignedWeights && mcqChoices.size() != mcqWeights.size()) {     // 4, 5
                 errors.add(Const.FeedbackQuestion.MCQ_ERROR_INVALID_WEIGHT);
             }
 
             // If weights are not enabled, but weight list is not empty or otherWeight is not 0
             // In that case, trigger this error.
-            if (!hasAssignedWeights && (!mcqWeights.isEmpty() || mcqOtherWeight != 0)) {
+            if (!hasAssignedWeights && (!mcqWeights.isEmpty() || mcqOtherWeight != 0)) {   // 6, 7, 8
                 errors.add(Const.FeedbackQuestion.MCQ_ERROR_INVALID_WEIGHT);
             }
 
             // If weights are enabled, but other option is disabled, and mcqOtherWeight is not 0
             // In that case, trigger this error.
-            if (hasAssignedWeights && !otherEnabled && mcqOtherWeight != 0) {
+            if (hasAssignedWeights && !otherEnabled && mcqOtherWeight != 0) {   // 9, 10, 11
                 errors.add(Const.FeedbackQuestion.MCQ_ERROR_INVALID_WEIGHT);
             }
 
             // If weights are enabled, and any of the weights have negative value,
             // trigger this error.
-            if (hasAssignedWeights && !mcqWeights.isEmpty()) {
-                for (double weight : mcqWeights) {
-                    if (weight < 0) {
+            if (hasAssignedWeights && !mcqWeights.isEmpty()) {         // 12, 13
+                for (double weight : mcqWeights) {             // 14
+                    if (weight < 0) {       // 15
                         errors.add(Const.FeedbackQuestion.MCQ_ERROR_INVALID_WEIGHT);
                     }
                 }
                 // If 'Other' option is enabled, and other weight has negative value,
                 // trigger this error.
-                if (otherEnabled && mcqOtherWeight < 0) {
+                if (otherEnabled && mcqOtherWeight < 0) {           // 16, 17
                     errors.add(Const.FeedbackQuestion.MCQ_ERROR_INVALID_WEIGHT);
                 }
             }
