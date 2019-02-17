@@ -13,11 +13,7 @@ URL:
 One or two sentences describing it
 
 ## Onboarding experience
-
-Did it build as documented?
-    
-(See the assignment for details; if everything works out of the box,
-there is no need to write much here.)
+The whole process of downloading the necessary things and running the frontend and backend respectively was very smooth. We have tested the onboarding on Windows, macOS and Unix. The setup documentation can be found [here](https://github.com/TEAMMATES/teammates/blob/master/docs/setting-up.md) and the documentation on how to run the program can be found [here](https://github.com/TEAMMATES/teammates/blob/master/docs/development.md).
 
 
 ## Complexity
