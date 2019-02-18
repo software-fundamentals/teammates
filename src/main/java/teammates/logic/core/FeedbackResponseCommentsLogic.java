@@ -39,6 +39,8 @@ public final class FeedbackResponseCommentsLogic {
     private static final InstructorsLogic instructorsLogic = InstructorsLogic.inst();
     private static final StudentsLogic studentsLogic = StudentsLogic.inst();
 
+    private boolean[] commentVisibleCoverage = new boolean[17];
+
     private FeedbackResponseCommentsLogic() {
         // prevent initialization
     }
@@ -207,57 +209,85 @@ public final class FeedbackResponseCommentsLogic {
         return isFeedbackParticipantNameVisibleToUser(response, userEmail, roster, showNameTo);
     }
 
+    //+1 complexity
     private boolean isFeedbackParticipantNameVisibleToUser(FeedbackResponseAttributes response,
             String userEmail, CourseRoster roster, List<FeedbackParticipantType> showNameTo) {
         String responseGiverTeam = "giverTeam";
-        if (roster.getStudentForEmail(response.giver) != null) {
+        if (roster.getStudentForEmail(response.giver) != null) { //+1 complexity
             responseGiverTeam = roster.getStudentForEmail(response.giver).team;
+            commentVisibleCoverage[0] = true;
         }
         String responseRecipientTeam = "recipientTeam";
-        if (roster.getStudentForEmail(response.recipient) != null) {
+        if (roster.getStudentForEmail(response.recipient) != null) {//+1 complexity
             responseRecipientTeam = roster.getStudentForEmail(response.recipient).team;
+            commentVisibleCoverage[1] = true;
         }
         String currentUserTeam = "currentUserTeam";
-        if (roster.getStudentForEmail(userEmail) != null) {
+        if (roster.getStudentForEmail(userEmail) != null) {//+1 complexity
             currentUserTeam = roster.getStudentForEmail(userEmail).team;
+            commentVisibleCoverage[2] = true;
         }
-        for (FeedbackParticipantType type : showNameTo) {
+        for (FeedbackParticipantType type : showNameTo) {//+1 complexity
+            commentVisibleCoverage[16] = true;
             switch (type) {
-            case INSTRUCTORS:
-                if (roster.getInstructorForEmail(userEmail) != null) {
+            case INSTRUCTORS://+1 complexity
+                commentVisibleCoverage[3] = true;
+                if (roster.getInstructorForEmail(userEmail) != null) {//+1 complexity
+                    commentVisibleCoverage[4] = true;
                     return true;
                 }
                 break;
-            case OWN_TEAM_MEMBERS:
-                if (responseGiverTeam.equals(currentUserTeam)) {
+            case OWN_TEAM_MEMBERS://+1 complexity
+                commentVisibleCoverage[5] = true;
+                if (responseGiverTeam.equals(currentUserTeam)) {//+1 complexity
+                    commentVisibleCoverage[6] = true;
                     return true;
                 }
                 break;
-            case RECEIVER:
-                if (userEmail.equals(response.recipient)) {
+            case RECEIVER://+1 complexity
+                commentVisibleCoverage[7] = true;
+                if (userEmail.equals(response.recipient)) {//+1 complexity
+                    commentVisibleCoverage[8] = true;
                     return true;
                 }
                 break;
-            case RECEIVER_TEAM_MEMBERS:
-                if (responseRecipientTeam.equals(currentUserTeam)) {
+            case RECEIVER_TEAM_MEMBERS://+1 complexity
+                commentVisibleCoverage[9] = true;
+                if (responseRecipientTeam.equals(currentUserTeam)) {//+1 complexity
+                    commentVisibleCoverage[10] = true;
                     return true;
                 }
                 break;
-            case STUDENTS:
-                if (roster.getStudentForEmail(userEmail) != null) {
+            case STUDENTS://+1 complexity
+                commentVisibleCoverage[11] = true;
+                if (roster.getStudentForEmail(userEmail) != null) {//+1 complexity
+                    commentVisibleCoverage[12] = true;
                     return true;
                 }
                 break;
-            case GIVER:
-                if (userEmail.equals(response.giver)) {
+            case GIVER://+1 complexity
+                commentVisibleCoverage[13] = true;
+                if (userEmail.equals(response.giver)) {//+1 complexity
+                    commentVisibleCoverage[14] = true;
                     return true;
                 }
                 break;
-            default:
+            default://+1 complexity
+                commentVisibleCoverage[15] = true;
                 break;
             }
         }
+        //total complexity: 18
         return false;
+    }
+
+    public void testVisibleCommentCoverage() {
+        int covered = 0;
+        for (int i = 0; i < commentVisibleCoverage.length; i++) {
+            if (commentVisibleCoverage[i])
+                covered ++;
+        }
+        System.out.println("Covered branches: " + covered + " of total branches: " + commentVisibleCoverage.length);
     }
 
     /**
