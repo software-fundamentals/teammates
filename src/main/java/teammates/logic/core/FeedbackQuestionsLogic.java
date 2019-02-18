@@ -70,9 +70,9 @@ public final class FeedbackQuestionsLogic {
           covered++;
         }
       }
-      System.out.println("Coverage of getRecipientsOfQuestion");
+      System.out.println("Coverage of getRecipientsForQuestion");
       System.out.println("Covered branches: " + covered + "/"+recipientForCoverage.length);
-      
+      // 14/19
     }
     
     
