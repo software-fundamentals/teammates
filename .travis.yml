@@ -6,6 +6,8 @@ branches:
   only:
     - master
     - release
+    - coverage
+    - coverage_improvement
 
 notifications:
   email: false
