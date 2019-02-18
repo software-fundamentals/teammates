@@ -49,6 +49,7 @@ public final class FeedbackQuestionsLogic {
     
     
     public static boolean[] recipientCoverage = new boolean[15];
+    public static boolean[] recipientForCoverage = new boolean[19];
 
     public static void testGetRecipientsOfQuestionCoverage() {
       int covered = 0;
@@ -60,6 +61,18 @@ public final class FeedbackQuestionsLogic {
       System.out.println("Coverage of getRecipientsOfQuestion");
       System.out.println("Covered branches: " + covered + "/"+recipientCoverage.length);
       
+    }
+    
+    public static void testGetRecipientsForQuestionCoverage() {
+      int covered = 0;
+      for(int i =0;i<recipientForCoverage.length;i++) {
+        if(recipientForCoverage[i]) {
+          covered++;
+        }
+      }
+      System.out.println("Coverage of getRecipientsForQuestion");
+      System.out.println("Covered branches: " + covered + "/"+recipientForCoverage.length);
+      // 14/19
     }
     
     
@@ -366,60 +379,79 @@ public final class FeedbackQuestionsLogic {
         case SELF:
             if (question.giverType == FeedbackParticipantType.TEAMS) {
                 recipients.put(studentGiver.team, studentGiver.team);
+                recipientForCoverage[1] = true;
             } else {
                 recipients.put(giver, Const.USER_NAME_FOR_SELF);
+                recipientForCoverage[2] = true;
             }
             break;
         case STUDENTS:
             List<StudentAttributes> studentsInCourse = studentsLogic.getStudentsForCourse(question.courseId);
+            recipientForCoverage[3] = true;
             for (StudentAttributes student : studentsInCourse) {
+                recipientForCoverage[4] = true;
                 // Ensure student does not evaluate himself
                 if (!giver.equals(student.email)) {
+                    recipientForCoverage[5] = true;
                     recipients.put(student.email, student.name);
                 }
             }
             break;
         case INSTRUCTORS:
             List<InstructorAttributes> instructorsInCourse = instructorsLogic.getInstructorsForCourse(question.courseId);
+            recipientForCoverage[6] = true;
             for (InstructorAttributes instr : instructorsInCourse) {
+                recipientForCoverage[7] = true;
                 // Ensure instructor does not evaluate himself
                 if (!giver.equals(instr.email)) {
+                    recipientForCoverage[8] = true;
                     recipients.put(instr.email, instr.name);
                 }
             }
             break;
         case TEAMS:
             List<TeamDetailsBundle> teams = coursesLogic.getTeamsForCourse(question.courseId);
+            recipientForCoverage[9] = true;
             for (TeamDetailsBundle team : teams) {
+                recipientForCoverage[10] = true;
                 // Ensure student('s team) does not evaluate own team.
                 if (!giverTeam.equals(team.name)) {
                     // recipientEmail doubles as team name in this case.
                     recipients.put(team.name, team.name);
+                    recipientForCoverage[11] = true;
                 }
             }
             break;
         case OWN_TEAM:
             recipients.put(giverTeam, giverTeam);
+            recipientForCoverage[12] = true;
             break;
         case OWN_TEAM_MEMBERS:
             List<StudentAttributes> students = studentsLogic.getStudentsForTeam(giverTeam, question.courseId);
+            recipientForCoverage[13] = true;
             for (StudentAttributes student : students) {
+                recipientForCoverage[14] = true;
                 if (!student.email.equals(giver)) {
                     recipients.put(student.email, student.name);
+                    recipientForCoverage[15] = true;
                 }
             }
             break;
         case OWN_TEAM_MEMBERS_INCLUDING_SELF:
+            recipientForCoverage[16] = true;
             List<StudentAttributes> teamMembers = studentsLogic.getStudentsForTeam(giverTeam, question.courseId);
             for (StudentAttributes student : teamMembers) {
                 // accepts self feedback too
                 recipients.put(student.email, student.name);
+                recipientForCoverage[17] = true;
             }
             break;
         case NONE:
             recipients.put(Const.GENERAL_QUESTION, Const.GENERAL_QUESTION);
+            recipientForCoverage[18] = true;
             break;
         default:
+            recipientForCoverage[0] = true;
             break;
         }
         return recipients;

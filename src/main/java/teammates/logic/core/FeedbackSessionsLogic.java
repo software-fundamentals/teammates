@@ -87,7 +87,7 @@ public final class FeedbackSessionsLogic {
     private static final InstructorsLogic instructorsLogic = InstructorsLogic.inst();
     private static final StudentsLogic studentsLogic = StudentsLogic.inst();
 
-    private boolean[] visibleResponseCoverage = new boolean[10];
+    private boolean[] visibleResponseCoverage = new boolean[11];
 
     private FeedbackSessionsLogic() {
         // prevent initialization

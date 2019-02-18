@@ -211,7 +211,6 @@ public class FeedbackResponseCommentsLogicTest extends BaseLogicTest {
             assertEquals(expectedFrComments.get(i).feedbackSessionName,
                          actualFrComments.get(i).feedbackSessionName);
         }
-
     }
 
     @Test
@@ -396,5 +395,18 @@ public class FeedbackResponseCommentsLogicTest extends BaseLogicTest {
                                    response.giver,
                                    response.recipient);
         return response.getId();
+    }
+
+    @Test(dependsOnMethods = {"testCreateFeedbackResponseComment",
+            "testCreateFeedbackResponseComment_invalidCommentGiverType_exceptionShouldBeThrown",
+            "testCreateFeedbackResponseComment_invalidVisibilitySettings_exceptionShouldBeThrown",
+            "testCreateFeedbackResponseComment_unknownFeedbackParticipant_exceptionShouldBeThrown",
+            "testDeleteFeedbackResponseCommentById",
+            "testDeleteFeedbackResponseCommentFromCourse",
+            "testDeleteFeedbackResponseCommentsForResponse",
+            "testGetFeedbackResponseComments",
+            "testUpdateFeedbackResponseComment"} )
+    private void checkCoverage() {
+        frcLogic.testVisibleCommentCoverage(); // 0 branches covered by tests
     }
 }
