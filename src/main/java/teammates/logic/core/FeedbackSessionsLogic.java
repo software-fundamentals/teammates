@@ -87,6 +87,8 @@ public final class FeedbackSessionsLogic {
     private static final InstructorsLogic instructorsLogic = InstructorsLogic.inst();
     private static final StudentsLogic studentsLogic = StudentsLogic.inst();
 
+    private boolean[] visibleResponseCoverage = new boolean[10];
+
     private FeedbackSessionsLogic() {
         // prevent initialization
     }
@@ -1997,7 +1999,16 @@ public final class FeedbackSessionsLogic {
         }
     }
 
-    private boolean isResponseVisibleForUser(String userEmail,
+    public void testVisibleResponseCoverage() {
+        int covered = 0;
+        for (int i = 0; i < visibleResponseCoverage.length; i++) {
+            if (visibleResponseCoverage[i])
+                covered++;
+        }
+        System.out.println("Covered branches: " + covered + " total branches: " + visibleResponseCoverage.length);
+    }
+
+    public boolean isResponseVisibleForUser(String userEmail,
             UserRole role, StudentAttributes student,
             Set<String> studentsEmailInTeam,
             FeedbackResponseAttributes response,
@@ -2009,24 +2020,39 @@ public final class FeedbackSessionsLogic {
                         && relatedQuestion.isResponseVisibleTo(FeedbackParticipantType.RECEIVER)
                 || response.giver.equals(userEmail)
                 || isStudent(role) && relatedQuestion.isResponseVisibleTo(FeedbackParticipantType.STUDENTS)) {
+            if (isInstructor(role) && relatedQuestion.isResponseVisibleTo(FeedbackParticipantType.INSTRUCTORS)) {
+                visibleResponseCoverage[0] = true;
+            } else if (response.recipient.equals(userEmail) && relatedQuestion.isResponseVisibleTo(FeedbackParticipantType.RECEIVER)) {
+                visibleResponseCoverage[1] = true;
+            } else if (response.giver.equals(userEmail)){
+                visibleResponseCoverage[2] = true;
+            } else if (isStudent(role) && relatedQuestion.isResponseVisibleTo(FeedbackParticipantType.STUDENTS)){
+                visibleResponseCoverage[3] = true;
+            }
             isVisibleResponse = true;
         } else if (studentsEmailInTeam != null && isStudent(role)) {
+            visibleResponseCoverage[4] = true;
             if (relatedQuestion.recipientType == FeedbackParticipantType.TEAMS
                     && relatedQuestion.isResponseVisibleTo(FeedbackParticipantType.RECEIVER)
                     && response.recipient.equals(student.team)) {
+                visibleResponseCoverage[5] = true;
                 isVisibleResponse = true;
             } else if (relatedQuestion.giverType == FeedbackParticipantType.TEAMS
                        && studentsEmailInTeam.contains(response.giver)) {
+                visibleResponseCoverage[6] = true;
                 isVisibleResponse = true;
             } else if (relatedQuestion.isResponseVisibleTo(FeedbackParticipantType.OWN_TEAM_MEMBERS)
                        && studentsEmailInTeam.contains(response.giver)) {
+                visibleResponseCoverage[7] = true;
                 isVisibleResponse = true;
             } else if (relatedQuestion.isResponseVisibleTo(FeedbackParticipantType.RECEIVER_TEAM_MEMBERS)
                        && studentsEmailInTeam.contains(response.recipient)) {
+                visibleResponseCoverage[8] = true;
                 isVisibleResponse = true;
             }
         }
         if (isVisibleResponse && instructor != null) {
+            visibleResponseCoverage[9] = true;
             boolean isGiverSectionRestricted =
                     !instructor.isAllowedForPrivilege(response.giverSection,
                                                       response.feedbackSessionName,
@@ -2041,6 +2067,7 @@ public final class FeedbackSessionsLogic {
 
             boolean isNotAllowedForInstructor = isGiverSectionRestricted || isRecipientSectionRestricted;
             if (isNotAllowedForInstructor) {
+                visibleResponseCoverage[10] = true;
                 isVisibleResponse = false;
             }
         }

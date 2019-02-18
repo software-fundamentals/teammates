@@ -409,5 +409,6 @@ public class FeedbackMcqQuestionDetailsTest extends BaseTestCase {
         assertFalse(mcqDetails.hasAssignedWeights());
         assertTrue(mcqDetails.getMcqWeights().isEmpty());
         assertEquals(0.0, mcqDetails.getMcqOtherWeight());
+        mcqDetails.testValidateQuestionDetailsCoverage(); // Covered branches: 9 of 9
     }
 }

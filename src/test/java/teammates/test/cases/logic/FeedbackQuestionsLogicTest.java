@@ -103,6 +103,11 @@ public class FeedbackQuestionsLogicTest extends BaseLogicTest {
         testDeleteQuestion();
         testAddQuestionNoIntegrityCheck();
         testDeleteQuestionsForCourse();
+        
+        FeedbackQuestionsLogic.testGetRecipientsOfQuestionCoverage();
+        
+        System.out.println("----------GetRecipientsOf Coverage END------------");
+        
     }
 
     @Test
