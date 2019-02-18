@@ -19,9 +19,12 @@ public class InstructorFeedbackResultsPageAction extends Action {
     private static final String ALL_SECTION_OPTION = "All";
     private static final int DEFAULT_SECTION_QUERY_RANGE = 2500;
 
+    private boolean[] executeCoverage = new boolean[20];
+
     @Override
     protected ActionResult execute() throws EntityDoesNotExistException {
-
+        executeCoverage[0] = true;
+        //+1 complexity
         String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
         String feedbackSessionName = getRequestParamValue(Const.ParamsNames.FEEDBACK_SESSION_NAME);
         boolean showStats = getRequestParamAsOnOffBoolean(Const.ParamsNames.FEEDBACK_RESULTS_SHOWSTATS);
@@ -43,12 +46,16 @@ public class InstructorFeedbackResultsPageAction extends Action {
         String sectionDetailValue = getRequestParamValue(Const.ParamsNames.FEEDBACK_RESULTS_GROUPBYSECTIONDETAIL);
         SectionDetail selectedSectionDetail = SectionDetail.NOT_APPLICABLE;
 
-        if (selectedSection == null) {
+        if (selectedSection == null) { //+1 complexity
+            executeCoverage[1] = true;
             selectedSection = ALL_SECTION_OPTION;
-        } else if (sectionDetailValue != null && !sectionDetailValue.isEmpty()) {
+        } else if (sectionDetailValue != null && !sectionDetailValue.isEmpty()) { //+2 complexity
+            executeCoverage[2] = true;
             Assumption.assertNotNull(SectionDetail.containsSectionDetail(sectionDetailValue));
             selectedSectionDetail = SectionDetail.valueOf(sectionDetailValue);
         }
+
+        //4 complexity
 
         boolean isMissingResponsesShown = getRequestParamAsBoolean(
                 Const.ParamsNames.FEEDBACK_RESULTS_INDICATE_MISSING_RESPONSES);
@@ -57,7 +64,8 @@ public class InstructorFeedbackResultsPageAction extends Action {
         // "(Non-English characters not displayed properly in the downloaded file? click here)"
         // TODO move into another action and another page data class
         boolean isLoadingCsvResultsAsHtml = getRequestParamAsBoolean(Const.ParamsNames.CSV_TO_HTML_TABLE_NEEDED);
-        if (isLoadingCsvResultsAsHtml) {
+        if (isLoadingCsvResultsAsHtml) { //+1 complexity
+            executeCoverage[3] = true;
             return createAjaxResultForCsvTableLoadedInHtml(
                     courseId, feedbackSessionName, instructor, data, selectedSection, selectedSectionDetail,
                     isMissingResponsesShown, Boolean.valueOf(showStats));
@@ -69,11 +77,13 @@ public class InstructorFeedbackResultsPageAction extends Action {
         String sortType = getRequestParamValue(Const.ParamsNames.FEEDBACK_RESULTS_SORTTYPE);
         String startIndex = getRequestParamValue(Const.ParamsNames.FEEDBACK_RESULTS_MAIN_INDEX);
 
-        if (startIndex != null) {
+        if (startIndex != null) { //+1 complexity
+            executeCoverage[4] = true;
             data.setStartIndex(Integer.parseInt(startIndex));
         }
 
-        if (sortType == null) {
+        if (sortType == null) { //+1 complexity
+            executeCoverage[5] = true;
             // default view: sort by question, statistics shown, grouped by team.
             showStats = true;
             groupByTeam = true;
@@ -81,29 +91,35 @@ public class InstructorFeedbackResultsPageAction extends Action {
             isMissingResponsesShown = true;
         }
 
+        //4 + 3 complexity
+
         String questionId = getRequestParamValue(Const.ParamsNames.FEEDBACK_QUESTION_ID);
         String isTestingAjax = getRequestParamValue(Const.ParamsNames.FEEDBACK_RESULTS_NEED_AJAX);
 
-        if (ALL_SECTION_OPTION.equals(selectedSection) && questionId == null
+        if (ALL_SECTION_OPTION.equals(selectedSection) && questionId == null //+3 complexity
                 && !Const.FeedbackSessionResults.QUESTION_SORT_TYPE.equals(sortType)) {
+            executeCoverage[6] = true;
             // bundle for all questions and all sections
             data.setBundle(
                      logic.getFeedbackSessionResultsForInstructorWithinRangeFromView(
                                                                            feedbackSessionName, courseId,
                                                                            instructor.email,
                                                                            DEFAULT_SECTION_QUERY_RANGE, sortType));
-        } else if (Const.FeedbackSessionResults.QUESTION_SORT_TYPE.equals(sortType)) {
+        } else if (Const.FeedbackSessionResults.QUESTION_SORT_TYPE.equals(sortType)) { //+1 complexity
+            executeCoverage[7] = true;
             data.setBundle(getBundleForQuestionView(isTestingAjax, courseId, feedbackSessionName, instructor, data,
                                                     selectedSection, selectedSectionDetail, sortType, questionId));
         } else if (Const.FeedbackSessionResults.GQR_SORT_TYPE.equals(sortType)
-                || Const.FeedbackSessionResults.GRQ_SORT_TYPE.equals(sortType)) {
+                || Const.FeedbackSessionResults.GRQ_SORT_TYPE.equals(sortType)) { //+2 complexity
+            executeCoverage[8] = true;
             data.setBundle(logic
                     .getFeedbackSessionResultsForInstructorFromSectionWithinRange(feedbackSessionName, courseId,
                                                                                   instructor.email,
                                                                                   selectedSection,
                                                                                   DEFAULT_SECTION_QUERY_RANGE));
         } else if (Const.FeedbackSessionResults.RQG_SORT_TYPE.equals(sortType)
-                || Const.FeedbackSessionResults.RGQ_SORT_TYPE.equals(sortType)) {
+                || Const.FeedbackSessionResults.RGQ_SORT_TYPE.equals(sortType)) { //+2 complexity
+            executeCoverage[9] = true;
             data.setBundle(logic
                     .getFeedbackSessionResultsForInstructorToSectionWithinRange(feedbackSessionName, courseId,
                                                                                 instructor.email,
@@ -111,7 +127,10 @@ public class InstructorFeedbackResultsPageAction extends Action {
                                                                                 DEFAULT_SECTION_QUERY_RANGE));
         }
 
-        if (data.getBundle() == null) {
+        //4 + 3 + 8 complexity
+
+        if (data.getBundle() == null) { //+1 complexity
+            executeCoverage[10] = true;
             throw new EntityDoesNotExistException("Feedback session " + feedbackSessionName
                                                   + " does not exist in " + courseId + ".");
         }
@@ -125,49 +144,61 @@ public class InstructorFeedbackResultsPageAction extends Action {
         // Warning for section wise does not make sense if there are no multiple sections.
         boolean isMultipleSectionAvailable = data.getBundle().getRosterSectionTeamNameTable().size() > 1;
 
+        //tot 4 complexity
         if (selectedSection.equals(ALL_SECTION_OPTION) && (isShowSectionWarningForParticipantView
-                                                           || isShowSectionWarningForQuestionView)) {
-            if (isMultipleSectionAvailable) {
+                                                           || isShowSectionWarningForQuestionView)) { //+3 complexity
+            executeCoverage[11] = true;
+            if (isMultipleSectionAvailable) { //+1 complexity
+                executeCoverage[12] = true;
                 statusToUser.add(new StatusMessage(Const.StatusMessages.FEEDBACK_RESULTS_SECTIONVIEWWARNING,
                                                    StatusMessageColor.WARNING));
-            } else {
+            } else { //+1 complexity
+                executeCoverage[13] = true;
                 statusToUser.add(new StatusMessage(Const.StatusMessages.FEEDBACK_RESULTS_QUESTIONVIEWWARNING,
                                                    StatusMessageColor.WARNING));
             }
             isError = true;
         }
 
-        switch (sortType) {
-        case Const.FeedbackSessionResults.QUESTION_SORT_TYPE:
+        //4 + 3 + 8 + 6 complexity
+
+        switch (sortType) { //tot 6 complexity
+        case Const.FeedbackSessionResults.QUESTION_SORT_TYPE: //+1 complexity
+            executeCoverage[14] = true;
             data.initForViewByQuestion(instructor, selectedSection, selectedSectionDetail, showStats,
                     groupByTeam, isMissingResponsesShown);
             return createShowPageResult(
                     Const.ViewURIs.INSTRUCTOR_FEEDBACK_RESULTS_BY_QUESTION, data);
-        case Const.FeedbackSessionResults.RGQ_SORT_TYPE:
+        case Const.FeedbackSessionResults.RGQ_SORT_TYPE: //+1 complexity
+            executeCoverage[15] = true;
             data.initForSectionPanelViews(instructor, selectedSection, showStats, groupByTeam,
                                           InstructorFeedbackResultsPageViewType.RECIPIENT_GIVER_QUESTION,
                                           isMissingResponsesShown);
             return createShowPageResult(
                     Const.ViewURIs.INSTRUCTOR_FEEDBACK_RESULTS_BY_RECIPIENT_GIVER_QUESTION, data);
-        case Const.FeedbackSessionResults.GRQ_SORT_TYPE:
+        case Const.FeedbackSessionResults.GRQ_SORT_TYPE: //+1 complexity
+            executeCoverage[16] = true;
             data.initForSectionPanelViews(instructor, selectedSection, showStats, groupByTeam,
                                           InstructorFeedbackResultsPageViewType.GIVER_RECIPIENT_QUESTION,
                                           isMissingResponsesShown);
             return createShowPageResult(
                     Const.ViewURIs.INSTRUCTOR_FEEDBACK_RESULTS_BY_GIVER_RECIPIENT_QUESTION, data);
-        case Const.FeedbackSessionResults.RQG_SORT_TYPE:
+        case Const.FeedbackSessionResults.RQG_SORT_TYPE: //+1 complexity
+            executeCoverage[17] = true;
             data.initForSectionPanelViews(instructor, selectedSection, showStats, groupByTeam,
                                           InstructorFeedbackResultsPageViewType.RECIPIENT_QUESTION_GIVER,
                                           isMissingResponsesShown);
             return createShowPageResult(
                     Const.ViewURIs.INSTRUCTOR_FEEDBACK_RESULTS_BY_RECIPIENT_QUESTION_GIVER, data);
-        case Const.FeedbackSessionResults.GQR_SORT_TYPE:
+        case Const.FeedbackSessionResults.GQR_SORT_TYPE: //+1 complexity
+            executeCoverage[18] = true;
             data.initForSectionPanelViews(instructor, selectedSection, showStats, groupByTeam,
                                           InstructorFeedbackResultsPageViewType.GIVER_QUESTION_RECIPIENT,
                                           isMissingResponsesShown);
             return createShowPageResult(
                     Const.ViewURIs.INSTRUCTOR_FEEDBACK_RESULTS_BY_GIVER_QUESTION_RECIPIENT, data);
-        default:
+        default: //+1 complexity
+            executeCoverage[19] = true;
             sortType = Const.FeedbackSessionResults.RGQ_SORT_TYPE;
             data.initForSectionPanelViews(instructor, selectedSection, showStats, groupByTeam,
                                           InstructorFeedbackResultsPageViewType.RECIPIENT_GIVER_QUESTION,
@@ -175,6 +206,18 @@ public class InstructorFeedbackResultsPageAction extends Action {
             return createShowPageResult(
                     Const.ViewURIs.INSTRUCTOR_FEEDBACK_RESULTS_BY_RECIPIENT_GIVER_QUESTION, data);
         }
+
+        //4 + 3 + 8 + 6 + 6 = 27 complexity
+    }
+
+    public void testVisibleCommentCoverage() {
+        int covered = 0;
+        for (int i = 0; i < executeCoverage.length; i++) {
+            if (executeCoverage[i])
+                covered ++;
+        }
+        System.out.println("execute() coverage:");
+        System.out.println("Covered branches: " + covered + " of total branches: " + executeCoverage.length);
     }
 
     private FeedbackSessionResultsBundle getBundleForQuestionView(
