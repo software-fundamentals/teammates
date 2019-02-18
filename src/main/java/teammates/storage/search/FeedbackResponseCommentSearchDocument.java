@@ -52,8 +52,9 @@ public class FeedbackResponseCommentSearchDocument extends SearchDocument {
                 covered++;
             }
         }
-        System.out.println("Coverage of getRecipientsOfQuestion");
+        System.out.println("Coverage of fromResults");
         System.out.println("Covered branches: " + covered + "/"+fromResultsCoverage.length);
+        // 10/16
     }
 
     public FeedbackResponseCommentSearchDocument(FeedbackResponseCommentAttributes comment) {
@@ -305,6 +306,8 @@ public class FeedbackResponseCommentSearchDocument extends SearchDocument {
             bundle.commentGiverEmailToNameTable.put(comment.commentGiver, commentGiverName);
             boolean isLastEditorEmailInMap = !comment.lastEditorEmail.isEmpty()
                 && bundle.commentGiverEmailToNameTable.containsKey(comment.lastEditorEmail);
+            if (!comment.lastEditorEmail.isEmpty())
+                fromResultsCoverage[10] = true;
             if (!isLastEditorEmailInMap) {
                 InstructorAttributes instructor =
                     instructorsDb.getInstructorForEmail(response.courseId, comment.lastEditorEmail);
@@ -333,7 +336,7 @@ public class FeedbackResponseCommentSearchDocument extends SearchDocument {
             filterFeedbackResponseCommentResults(bundle, instructors, bundle.numberOfResults);
         removeQuestionsAndResponsesWithoutComments(bundle);
         return bundle;
-            }
+    }
 
     private static String getFilteredCommentGiverName(FeedbackResponseCommentSearchResultBundle bundle,
             Set<String> instructorCourseIdList,
