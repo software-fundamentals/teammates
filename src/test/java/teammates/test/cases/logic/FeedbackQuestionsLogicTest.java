@@ -196,6 +196,8 @@ public class FeedbackQuestionsLogicTest extends BaseLogicTest {
         assertEquals(recipients.get(email), Const.USER_NAME_FOR_SELF);
         assertEquals(recipients.size(), 1);
 
+        FeedbackQuestionsLogic.testGetRecipientsForQuestionCoverage();
+        System.out.println("----------GetRecipientsFor Coverage END------------");
     }
 
     private void testUpdateQuestionNumber() throws Exception {
