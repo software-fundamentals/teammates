@@ -109,9 +109,9 @@ instructor, receiver, giver or a student in the roster.
 
 If any of the if statements evaluate to true, the function returns true. Otherwise the function returns false.
 
-
 ### Complexity
-Lizard and hand counting determined the complexity to 27. There are multiple single if statements, but the primary 
-contributor to the relatively high complexity is the extensive use of binary logical operators in if statements. 
-Additionally there is a large switch statement. Since this is function is so large, it can easily be refactored into 
-multiple sub methods that each do some data manipulation or some method call that is currently done in execute.
+Lizard got the complexity to 17 while hand counting determined it to be 18. It is probably some minor branch thing that 
+lizard does not consider. The complexity is rather high because of a large switch statements with if statements in each 
+case. Additionally there are some few single ifs as well as a for loop. The complexity of the function can be reduced 
+quite a lot by a simple refactoring. For example, the switch case could be moved to its own function, reducing the 
+complexity by about 14.  
