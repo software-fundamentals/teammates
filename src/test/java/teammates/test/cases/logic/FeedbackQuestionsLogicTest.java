@@ -91,6 +91,7 @@ public class FeedbackQuestionsLogicTest extends BaseLogicTest {
 
     @Test
     public void allTests() throws Exception {
+
         testGetRecipientsForQuestion();
         testGetFeedbackQuestionsForInstructor();
         testGetFeedbackQuestionsForStudents();
@@ -103,8 +104,100 @@ public class FeedbackQuestionsLogicTest extends BaseLogicTest {
         testDeleteQuestion();
         testAddQuestionNoIntegrityCheck();
         testDeleteQuestionsForCourse();
+        testGetRecipientsOfQuestion();
+        testGetRecipientsOfQuestion2();
+        testGetRecipientsOfQuestion3();
+        testGetRecipientsOfQuestion4();
+        FeedbackQuestionsLogic.testGetRecipientsOfQuestionCoverage();
+        
+        System.out.println("----------GetRecipientsOf Coverage END------------");
     }
 
+    /*
+     * Test for getRecipientsOfQuestionForStudent, in order
+     * to test the function getRecipientsOfQuestion()
+     */
+    
+    
+    @Test
+    public void testGetRecipientsOfQuestion() throws EntityDoesNotExistException {
+      FeedbackQuestionAttributes question;
+      String email;
+      Map<String, String> recipients;
+
+      ______TS("response to students, total 5");
+
+      question = getQuestionFromDatastore("qn2InSession1InCourse1");
+      email = dataBundle.students.get("student1InCourse1").email;
+     
+      String giverteam = dataBundle.students.get("student1InCourse1").team;
+      recipients = fqLogic.getRecipientsOfQuestionForStudent(question, email, giverteam);
+      
+      assertEquals(recipients.size(), 4); // 5 students minus giver himself
+      
+      
+      
+    }
+    
+    /*
+     * Test for getRecipientsOfQuestionForInstructor in order
+     * to test the function getRecipientsOfQuestion()
+     */
+    @Test
+    public void testGetRecipientsOfQuestion2() throws EntityDoesNotExistException {
+      FeedbackQuestionAttributes question;
+      String email;
+      Map<String, String> recipients;
+
+
+      question = getQuestionFromDatastore("qn1InSession1InCourse1");
+      email = dataBundle.students.get("student1InCourse1").email;
+      AccountsLogic.inst().makeAccountInstructor(dataBundle.students.get("student1InCourse1").googleId);
+      recipients = fqLogic.getRecipientsOfQuestionForInstructor(question, email);
+     assert(recipients != null);
+      
+    }
+    
+    /*
+     * Test for getRecipientsOfQuestionForInstructor in order
+     * to test the function getRecipientsOfQuestion()
+     */
+    
+    public void testGetRecipientsOfQuestion3() throws EntityDoesNotExistException{
+      
+      FeedbackQuestionAttributes question;
+      String email;
+      Map<String, String> recipients;
+
+      ______TS("response from team to itself"); 
+      
+      question = getQuestionFromDatastore("graceperiod.session.feedbackFromTeamToSelf");
+      email = dataBundle.students.get("student1InCourse1").email;
+      recipients = fqLogic.getRecipientsOfQuestionForInstructor(question, email);
+      assertEquals(recipients.size(), 1);
+    }
+    
+    /*
+     * Test for getRecipientsOfQuestionForStudent, in order
+     * to test the function getRecipientsOfQuestion()
+     */
+    
+    public void testGetRecipientsOfQuestion4() throws EntityDoesNotExistException{
+      
+      FeedbackQuestionAttributes question;
+      String email;
+      Map<String, String> recipients;
+      
+      ______TS("empty case: response to team members, but alone");
+
+      question = getQuestionFromDatastore("team.members.feedback");
+      email = dataBundle.students.get("student5InCourse1").email;
+      String team = dataBundle.students.get("student5InCourse1").team;
+      recipients = fqLogic.getRecipientsOfQuestionForStudent(question, email, team);
+      assertEquals(recipients.size(), 0);
+    }
+    
+    
     @Test
     public void testGetTemplateQuestionForInstructor() {
 
@@ -186,7 +279,6 @@ public class FeedbackQuestionsLogicTest extends BaseLogicTest {
         question = getQuestionFromDatastore("qn1InSession1InCourse1");
         email = dataBundle.students.get("student1InCourse1").email;
         AccountsLogic.inst().makeAccountInstructor(dataBundle.students.get("student1InCourse1").googleId);
-
         recipients = fqLogic.getRecipientsForQuestion(question, email);
         assertEquals(recipients.get(email), Const.USER_NAME_FOR_SELF);
         assertEquals(recipients.size(), 1);
