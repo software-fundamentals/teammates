@@ -19,6 +19,19 @@ The function checks the recipientType of the parameter "question" and returns al
 My own calculations, and the lizard tool, found the cyclomatic complexity to be 19.
 Eight new branches are created for the eight recipientTypes checked (SELF, STUDENTS, INSTRUCTORS, etc) in the switch statement. In addition, most cases include a foreach loop and an if statement. Several of these cases do essentially the same thing: loop through a recipient list and add the recipient to "recipients" if the recipient isn't the question giver. So there's potential to reduce the complexity of the function, for example by creating a helper function.
 
+
+## fromResults
+### Location of function
+The function can be found [here](https://github.com/software-fundamentals/teammates/blob/master/src/main/java/teammates/storage/search/FeedbackResponseCommentSearchDocument.java)
+
+### Description
+This function produces a FeedbackResponseCommentSearchResultBundle from the parameter "results".
+There are several data structures in the returned FeedbackResponseCommentSearchResultBundle object that are filled.
+
+### Complexity
+The lizard tool reported cyclomatic complexity of 16 for this function. It contains five for loops, and ten boolean conditions. Some parts of this complex function could be moved to new helper functions.
+
+
 ## isResponseVisibleForUser
 ### Location of function
 The function can be found [here](https://github.com/software-fundamentals/teammates/blob/master/src/main/java/teammates/logic/core/FeedbackSessionsLogic.java)
