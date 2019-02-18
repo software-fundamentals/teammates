@@ -213,6 +213,7 @@ public final class FeedbackResponseCommentsLogic {
     private boolean isFeedbackParticipantNameVisibleToUser(FeedbackResponseAttributes response,
             String userEmail, CourseRoster roster, List<FeedbackParticipantType> showNameTo) {
         String responseGiverTeam = "giverTeam";
+        commentVisibleCoverage[18] = true;
         if (roster.getStudentForEmail(response.giver) != null) { //+1 complexity
             responseGiverTeam = roster.getStudentForEmail(response.giver).team;
             commentVisibleCoverage[0] = true;

@@ -48,6 +48,7 @@ public class InstructorFeedbackResultsPageActionTest extends BaseActionTest {
         };
 
         InstructorFeedbackResultsPageAction action = getAction(param);
+        action.testVisibleCommentCoverage();
         getShowPageResult(action);
     }
 
@@ -425,6 +426,7 @@ public class InstructorFeedbackResultsPageActionTest extends BaseActionTest {
         InstructorFeedbackResultsPageData pageData = (InstructorFeedbackResultsPageData) result.data;
         assertTrue(pageData.getBundle().responses.isEmpty());
 
+        action.testVisibleCommentCoverage();
     }
 
     @Override
@@ -444,5 +446,4 @@ public class InstructorFeedbackResultsPageActionTest extends BaseActionTest {
 
         verifyOnlyInstructorsOfTheSameCourseCanAccess(submissionParams);
     }
-
 }
