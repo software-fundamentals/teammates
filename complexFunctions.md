@@ -2,7 +2,6 @@
 ## equals
 ### Location of function
 The function can be found at [here](https://github.com/software-fundamentals/teammates/blob/master/src/main/java/teammates/common/datatransfer/attributes/FeedbackQuestionAttributes.java).
-
 ### Description
 The equals function checks if two objects of type `FeedBackQuestionAttributes` are equal. We call the object which calls the function A and the object passed as parameter for B. First of all, the function checks if the object A is object B, then true is returned. Then it checks if object B is null, then false is returned. Then each paramter is checked respectively. If any of object B's or object A's paramters is null or not equal to one another, false is returned. If all checks passes, true is returned.
 
@@ -59,7 +58,6 @@ The function checks if a response to a specific question is visible to a particu
 
 ### Complexity
 The lizard tool found a cyclomatic complexity of 24 due to the fact that there is 8 statements and 14 boolean conditions making it a complex function. Since a lot of the if statements are nested and got many boolean conditions, it's difficault to get an overview of the function. I do believe that everything that is checked has to be checked but I think that it should be separated into different functions. For instance, if the user is an instructor, another function that checks all the instructor related variables could be called.
-
 
 ## validateQuestionDetails
 ### Location of function
