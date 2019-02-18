@@ -1,8 +1,9 @@
 # Reference: https://docs.codecov.io/docs
 
-# Only build on master branch
+# Build on coverage branch
 codecov:
-  branch: master
+  branch: coverage
+  token: bc65c6ce-6a15-4555-a91a-2f2a7fbe3c90
 
 # Do not allow the bot to comment on pull requests
 comment: off
