@@ -2,7 +2,6 @@
 ## equals
 ### Location of function
 The function can be found at [here](https://github.com/software-fundamentals/teammates/blob/master/src/main/java/teammates/common/datatransfer/attributes/FeedbackQuestionAttributes.java).
-
 ### Description
 The equals function checks if two objects of type `FeedBackQuestionAttributes` are equal. We call the object which calls the function A and the object passed as parameter for B. First of all, the function checks if the object A is object B, then true is returned. Then it checks if object B is null, then false is returned. Then each paramter is checked respectively. If any of object B's or object A's paramters is null or not equal to one another, false is returned. If all checks passes, true is returned.
 
@@ -60,7 +59,6 @@ The function checks if a response to a specific question is visible to a particu
 ### Complexity
 The lizard tool found a cyclomatic complexity of 24 due to the fact that there is 8 statements and 14 boolean conditions making it a complex function. Since a lot of the if statements are nested and got many boolean conditions, it's difficault to get an overview of the function. I do believe that everything that is checked has to be checked but I think that it should be separated into different functions. For instance, if the user is an instructor, another function that checks all the instructor related variables could be called.
 
-
 ## validateQuestionDetails
 ### Location of function
 The function can be found [here](https://github.com/software-fundamentals/teammates/blob/master/src/main/java/teammates/common/datatransfer/questions/FeedbackMcqQuestionDetails.java)
@@ -77,3 +75,41 @@ of if-statements in the function. Also due to the several uses of && and || oper
 The if-statements could be refactored in order to reduce the complexity, for example, the if statements that concerns the
 case when the variable 'weights' are enabled could belong to one helper function and when 'weights' are disable could belong
 to another.
+
+## execute
+### Location of function 
+The function can be found [here](https://github.com/software-fundamentals/teammates/blob/bb211c8e22fdd194ece0df8be50b32d8ecb825ed/src/main/java/teammates/ui/controller/InstructorFeedbackResultsPageAction.java)
+
+### Description
+The purpose of this function is to get instructor feedback results from the back end and convert it to a user friendly 
+(HTML) format. The instructor can choose to display results from a certain section and sort the results in different 
+ways. Each of these options is represented by a path in the code, for example, the sort options are handled in the switch.
+
+### Complexity
+Lizard and hand counting determined the complexity to 27. There are multiple single if statements, but the primary 
+contributor to the relatively high complexity is the extensive use of binary logical operators in if statements. 
+Additionally there is a large switch statement. Since this is function is so large, it can easily be refactored into 
+multiple sub methods that each do some data manipulation or some method call that is currently done in execute.
+
+## isFeedBackParticipantNameVisibleToUser
+### Location of function 
+The function can be found [here](https://github.com/software-fundamentals/teammates/blob/bb211c8e22fdd194ece0df8be50b32d8ecb825ed/src/main/java/teammates/logic/core/FeedbackResponseCommentsLogic.java)
+
+### Description
+The purpose of this function is to determine whether the user can see the feedback participants name or not.
+The function’s first 3 branches are if statements which checks the different “teams” the response giver, 
+response recipient and current user is in.
+
+Then there is a switch statement. The switch statement for each type checks whether the type is in showNameTo, 
+a list of user groups that the name should be visible to. For each type there is an if statement. The if statements 
+checks (based on type) either if the current user is in a the recipient or giver team, or if the current user is the 
+instructor, receiver, giver or a student in the roster. 
+
+If any of the if statements evaluate to true, the function returns true. Otherwise the function returns false.
+
+### Complexity
+Lizard got the complexity to 17 while hand counting determined it to be 18. It is probably some minor branch thing that 
+lizard does not consider. The complexity is rather high because of a large switch statements with if statements in each 
+case. Additionally there are some few single ifs as well as a for loop. The complexity of the function can be reduced 
+quite a lot by a simple refactoring. For example, the switch case could be moved to its own function, reducing the 
+complexity by about 14.  

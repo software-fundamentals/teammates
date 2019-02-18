@@ -533,10 +533,17 @@ public class FeedbackResponsesLogicTest extends BaseLogicTest {
         assertTrue(frLogic.isNameVisibleToUser(fq, fr, instructor.email, UserRole.INSTRUCTOR, false, roster));
         assertTrue(frLogic.isNameVisibleToUser(fq, fr, student.email, UserRole.STUDENT, false, roster));
 
+//        frLogic.testIsFeedbackParticipantNameVisibleToUserCoverage();
         ______TS("test if visible to own team members");
 
         fr.giver = student.email;
         assertTrue(frLogic.isNameVisibleToUser(fq, fr, student.email, UserRole.STUDENT, false, roster));
+
+        ______TS("test if visible to instructor");      // Increases branch coverage my 2
+        fq.recipientType = FeedbackParticipantType.INSTRUCTORS;
+        assertTrue(frLogic.isNameVisibleToUser(fq, fr, instructor.email, UserRole.INSTRUCTOR, false, roster));
+        assertFalse(frLogic.isNameVisibleToUser(fq, fr, "failTest@hotmail.com", UserRole.INSTRUCTOR, false, roster));
+        frLogic.testIsFeedbackParticipantNameVisibleToUserCoverage();
 
         ______TS("test if visible to receiver/reciever team members");
 
