@@ -50,6 +50,8 @@ public class FeedbackResponseCommentSearchDocument extends SearchDocument {
         for (int i = 0; i < fromResultsCoverage.length; i++) {
             if(fromResultsCoverage[i]) {
                 covered++;
+            } else {
+                System.out.println("Branch " + i + " not covered");
             }
         }
         System.out.println("Coverage of fromResults");

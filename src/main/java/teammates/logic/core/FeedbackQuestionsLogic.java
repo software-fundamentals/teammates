@@ -68,6 +68,8 @@ public final class FeedbackQuestionsLogic {
       for(int i =0;i<recipientForCoverage.length;i++) {
         if(recipientForCoverage[i]) {
           covered++;
+        } else {
+          System.out.println("Branch " + i + " not covered");
         }
       }
       System.out.println("Coverage of getRecipientsForQuestion");

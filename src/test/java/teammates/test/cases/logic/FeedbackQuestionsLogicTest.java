@@ -107,7 +107,9 @@ public class FeedbackQuestionsLogicTest extends BaseLogicTest {
         FeedbackQuestionsLogic.testGetRecipientsOfQuestionCoverage();
         
         System.out.println("----------GetRecipientsOf Coverage END------------");
-        
+
+        FeedbackQuestionsLogic.testGetRecipientsForQuestionCoverage();
+        System.out.println("----------GetRecipientsFor Coverage END------------");
     }
 
     @Test
@@ -196,8 +198,30 @@ public class FeedbackQuestionsLogicTest extends BaseLogicTest {
         assertEquals(recipients.get(email), Const.USER_NAME_FOR_SELF);
         assertEquals(recipients.size(), 1);
 
-        FeedbackQuestionsLogic.testGetRecipientsForQuestionCoverage();
-        System.out.println("----------GetRecipientsFor Coverage END------------");
+        ______TS("recipientType: GIVER (should return empty map)");
+        question = getQuestionFromDatastore("qn1InSession1InCourse1");
+        question.recipientType = FeedbackParticipantType.GIVER;
+        email = dataBundle.students.get("student1InCourse1").email;
+        recipients = fqLogic.getRecipientsForQuestion(question, email);
+        assertEquals(recipients.size(), 0);
+
+        ______TS("recipientType: OWN_TEAM");
+        question = getQuestionFromDatastore("qn1InSession1InCourse1");
+        question.recipientType = FeedbackParticipantType.OWN_TEAM;
+        teamName = dataBundle.students.get("student1InCourse1").team;
+        email = dataBundle.students.get("student1InCourse1").email;
+        recipients = fqLogic.getRecipientsForQuestion(question, email);
+        assertEquals(recipients.get(teamName), teamName);
+        assertEquals(recipients.size(), 1);
+
+        ______TS("recipientType: OWN_TEAM_MEMBERS_INCLUDING_SELF");
+        question = getQuestionFromDatastore("qn1InSession1InCourse1");
+        question.recipientType = FeedbackParticipantType.OWN_TEAM_MEMBERS_INCLUDING_SELF;
+        email = dataBundle.students.get("student1InCourse1").email;
+        String name = dataBundle.students.get("student1InCourse1").name;
+        recipients = fqLogic.getRecipientsForQuestion(question, email);
+        assertEquals(recipients.size(), 4);
+        assertEquals(recipients.get(email), name);
     }
 
     private void testUpdateQuestionNumber() throws Exception {
