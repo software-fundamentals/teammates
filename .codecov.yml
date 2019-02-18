@@ -3,6 +3,7 @@
 # Only build on master branch
 codecov:
   branch: master
+  token: bc65c6ce-6a15-4555-a91a-2f2a7fbe3c90
 
 # Do not allow the bot to comment on pull requests
 comment: off
