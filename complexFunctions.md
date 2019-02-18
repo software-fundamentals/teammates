@@ -63,3 +63,41 @@ of if-statements in the function. Also due to the several uses of && and || oper
 The if-statements could be refactored in order to reduce the complexity, for example, the if statements that concerns the
 case when the variable 'weights' are enabled could belong to one helper function and when 'weights' are disable could belong
 to another.
+
+## execute
+### Location of function 
+The function can be found [here](https://github.com/software-fundamentals/teammates/blob/bb211c8e22fdd194ece0df8be50b32d8ecb825ed/src/main/java/teammates/ui/controller/InstructorFeedbackResultsPageAction.java)
+
+### Description
+The purpose of this function is to get instructor feedback results from the back end and convert it to a user friendly 
+(HTML) format. The instructor can choose to display results from a certain section and sort the results in different 
+ways. Each of these options is represented by a path in the code, for example, the sort options are handled in the switch.
+
+### Complexity
+Lizard and hand counting determined the complexity to 27. There are multiple single if statements, but the primary 
+contributor to the relatively high complexity is the extensive use of binary logical operators in if statements. 
+Additionally there is a large switch statement. Since this is function is so large, it can easily be refactored into 
+multiple sub methods that each do some data manipulation or some method call that is currently done in execute.
+
+## isFeedBackParticipantNameVisibleToUser
+### Location of function 
+The function can be found [here](https://github.com/software-fundamentals/teammates/blob/bb211c8e22fdd194ece0df8be50b32d8ecb825ed/src/main/java/teammates/logic/core/FeedbackResponseCommentsLogic.java)
+
+### Description
+The purpose of this function is to determine whether the user can see the feedback participants name or not.
+The function’s first 3 branches are if statements which checks the different “teams” the response giver, 
+response recipient and current user is in.
+
+Then there is a switch statement. The switch statement for each type checks whether the type is in showNameTo, 
+a list of user groups that the name should be visible to. For each type there is an if statement. The if statements 
+checks (based on type) either if the current user is in a the recipient or giver team, or if the current user is the 
+instructor, receiver, giver or a student in the roster. 
+
+If any of the if statements evaluate to true, the function returns true. Otherwise the function returns false.
+
+
+### Complexity
+Lizard and hand counting determined the complexity to 27. There are multiple single if statements, but the primary 
+contributor to the relatively high complexity is the extensive use of binary logical operators in if statements. 
+Additionally there is a large switch statement. Since this is function is so large, it can easily be refactored into 
+multiple sub methods that each do some data manipulation or some method call that is currently done in execute.

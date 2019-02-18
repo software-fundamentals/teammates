@@ -142,8 +142,6 @@ public class FeedbackSessionsLogicTest extends BaseLogicTest {
         testRestoreFeedbackSessionFromRecycleBin();
         testRestoreAllFeedbackSessionsFromRecycleBin();
         testDeleteFeedbackSessionsForCourse();
-
-        //frcLogic.testVisibleCommentCoverage();
     }
 
     private void testGetFeedbackSessionsListForInstructor() {

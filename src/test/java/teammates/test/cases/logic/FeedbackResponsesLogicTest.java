@@ -64,7 +64,6 @@ public class FeedbackResponsesLogicTest extends BaseLogicTest {
         testDeleteFeedbackResponsesForStudent();
         testSpecialCharactersInTeamName();
         testDeleteFeedbackResponsesForCourse();
-        frcLogic.testVisibleCommentCoverage();
         frLogic.testIsFeedbackParticipantNameVisibleToUserCoverage(); // 11 branches out of 15 covered
     }
 
