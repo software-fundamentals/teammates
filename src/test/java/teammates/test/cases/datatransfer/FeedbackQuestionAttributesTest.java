@@ -521,22 +521,6 @@ public class FeedbackQuestionAttributesTest extends BaseAttributesTest {
                 .build();
     }
 
-    @Test
-    public void testEquals() {
-        //Test that a FeedbackQuestionAttributes object equals itself
-        FeedbackQuestionAttributes questionAttributes = getNewFeedbackQuestionAttributes();
-        assertTrue(questionAttributes.equals(questionAttributes));
-
-        //Test that a FeedbackQuestionAttributes object doesn't equal null
-        assertFalse(questionAttributes.equals(null));
-
-        //Test that two objects that have all equal parameters are equal
-        FeedbackQuestionAttributes questionAttributes2 = getNewFeedbackQuestionAttributes();
-        assertTrue(questionAttributes.equals(questionAttributes2));
-
-        questionAttributes.testEqualsCoverage();
-    }
-
     private static class FeedbackQuestionAttributesWithModifiableTimestamp extends FeedbackQuestionAttributes {
 
         void setCreatedAt(Instant createdAt) {
