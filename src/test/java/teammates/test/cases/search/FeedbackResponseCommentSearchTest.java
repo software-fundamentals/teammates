@@ -14,6 +14,8 @@ import teammates.common.util.retry.RetryableTask;
 import teammates.logic.core.FeedbackSessionsLogic;
 import teammates.storage.api.FeedbackResponseCommentsDb;
 
+import teammates.storage.search.FeedbackResponseCommentSearchDocument;
+
 /**
  * SUT: {@link FeedbackResponseCommentsDb},
  *      {@link teammates.storage.search.FeedbackResponseCommentSearchDocument},
@@ -100,6 +102,8 @@ public class FeedbackResponseCommentSearchTest extends BaseSearchTest {
                 FeedbackResponseCommentSearchResultBundle bundle =
                         commentsDb.search("\"Instructor 3 comment to instr1C2 response to student1C2\"", instructors);
                 verifySearchResults(bundle);
+                FeedbackResponseCommentSearchDocument.testFromResultsCoverage();
+                System.out.println("Finished fromResults coverage");
             }
         }, AssertionError.class);
     }
