@@ -1591,4 +1591,36 @@ public class FeedbackSessionsLogicTest extends BaseLogicTest {
         assertTrue(frcLogic.getFeedbackResponseCommentForSession(courseId, feedbackSessionName1).isEmpty());
         assertTrue(frcLogic.getFeedbackResponseCommentForSession(courseId, feedbackSessionName2).isEmpty());
     }
+
+    @Test
+    public void testIsResponseVisibleForUser() {
+        StudentAttributes student = dataBundle.students.get("student1InCourse1");
+        UserRole studentRole = UserRole.STUDENT;
+        UserRole instructorRole = UserRole.INSTRUCTOR;
+        InstructorAttributes instructor = dataBundle.instructors.get("instructor1fCourse1");
+        //Visible to instructors and sent by student1InCourse1 to student1InCourse1
+        FeedbackQuestionAttributes question1 = getQuestionFromDatastore("qn1InSession1InCourse1");
+        FeedbackResponseAttributes response1 = getResponseFromDatastore("response1ForQ1S1C1", dataBundle);
+
+         //Visible to students and sent by student2InCourse1 to student1InCourse1
+        FeedbackQuestionAttributes question2 = getQuestionFromDatastore("qn2InSession1InCourse1");
+        FeedbackResponseAttributes response2 = getResponseFromDatastore("response1ForQ2S1C1", dataBundle);
+
+         Set<String> emails = new HashSet<>();
+        emails.add(student.email);
+
+         //Should return true since the student sent this response
+        boolean result1 = fsLogic.isResponseVisibleForUser(student.email, studentRole, student, emails, response1, question1, instructor);
+        assertEquals(result1, true);
+
+         //Should return true since the role is an instructor and the response is visible to instructors.
+        boolean result2 = fsLogic.isResponseVisibleForUser(student.email, instructorRole, student, emails, response1, question1, instructor);
+        assertEquals(result2, true);
+
+         //Should return true since the response was sent to the student
+        boolean result3 = fsLogic.isResponseVisibleForUser(student.email, studentRole, student, emails, response2, question2, instructor);
+        assertEquals(result3, true);
+
+         fsLogic.testVisibleResponseCoverage();
+    }
 }
