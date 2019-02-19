@@ -6,10 +6,10 @@ import java.util.List;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import teammates.common.datatransfer.CourseRoster;
 import teammates.common.datatransfer.FeedbackParticipantType;
-import teammates.common.datatransfer.attributes.FeedbackQuestionAttributes;
-import teammates.common.datatransfer.attributes.FeedbackResponseAttributes;
-import teammates.common.datatransfer.attributes.FeedbackResponseCommentAttributes;
+import teammates.common.datatransfer.attributes.*;
+import teammates.common.datatransfer.questions.FeedbackTextResponseDetails;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
 import teammates.logic.core.FeedbackQuestionsLogic;
@@ -405,8 +405,104 @@ public class FeedbackResponseCommentsLogicTest extends BaseLogicTest {
             "testDeleteFeedbackResponseCommentFromCourse",
             "testDeleteFeedbackResponseCommentsForResponse",
             "testGetFeedbackResponseComments",
-            "testUpdateFeedbackResponseComment"} )
+            "testUpdateFeedbackResponseComment",
+            "testNameIsVisibleToInstructor"})
     private void checkCoverage() {
         frcLogic.testVisibleCommentCoverage(); // 0 branches covered by tests
     }
+
+    /**
+     * Test for isNameVisibleToUser
+     * needs a comment, response user email, and course roster
+     */
+    @Test
+    public void testNameIsVisibleToInstructor() {
+        String courseId = "1";
+        String feedbackSessionName = "testSession";
+        String student1Name = "Student Testsson";
+        String teacherName = "Teacher Testberg";
+        String student1Email = "student1@email.com";
+        String teacherEmail = "teacher@email.com";
+        String googleId = "123";
+        String comment1Text = "This is some feedback for you.";
+        String student2Name = "Student2 Testsson";
+        String student2Email = "student2@email.com";
+
+        //list of students
+        StudentAttributes student1Attributes = new StudentAttributes.Builder(courseId, student1Name, student1Email).build();
+        StudentAttributes student2Attributes = new StudentAttributes.Builder(courseId, student2Name, student2Email).build();
+        ArrayList<StudentAttributes> studentList = new ArrayList<>();
+        studentList.add(student1Attributes);
+        studentList.add(student2Attributes);
+
+        //list of teachers
+        InstructorAttributes instructorAttributes = new InstructorAttributes.Builder(googleId, courseId, teacherName, teacherEmail).build();
+        ArrayList<InstructorAttributes> instructorList = new ArrayList<>();
+        instructorList.add(instructorAttributes);
+
+        //course roster
+        CourseRoster roster = new CourseRoster(studentList, instructorList);
+
+        //given comment
+        FeedbackResponseCommentAttributes comment = FeedbackResponseCommentAttributes.builder(courseId, feedbackSessionName, student1Email, comment1Text).build();
+        comment.isVisibilityFollowingFeedbackQuestion = false;
+        //comment permissons
+        List<FeedbackParticipantType> showGiverNameTo = new ArrayList<>();
+        showGiverNameTo.add(FeedbackParticipantType.INSTRUCTORS);
+        comment.showGiverNameTo = showGiverNameTo;
+
+        //response
+        FeedbackResponseAttributes response = new FeedbackResponseAttributes(feedbackSessionName, courseId,
+                null, student1Email, null, student2Email, null, new FeedbackTextResponseDetails());
+
+        //teacher should always see
+        assertTrue(frcLogic.isNameVisibleToUser(comment, response, teacherEmail, roster));
+
+        //response giver should see
+        assertTrue(frcLogic.isNameVisibleToUser(comment, response, student1Email, roster));
+    }
+
+    public void testNameIsNotVisibleToRandom() {
+        String courseId = "1";
+        String feedbackSessionName = "testSession";
+        String student1Name = "Student Testsson";
+        String teacherName = "Teacher Testberg";
+        String student1Email = "student1@email.com";
+        String teacherEmail = "teacher@email.com";
+        String googleId = "123";
+        String comment1Text = "This is some feedback for you.";
+        String student2Name = "Student2 Testsson";
+        String student2Email = "student2@email.com";
+
+        //list of students
+        StudentAttributes student1Attributes = new StudentAttributes.Builder(courseId, student1Name, student1Email).build();
+        StudentAttributes student2Attributes = new StudentAttributes.Builder(courseId, student2Name, student2Email).build();
+        ArrayList<StudentAttributes> studentList = new ArrayList<>();
+        studentList.add(student1Attributes);
+        studentList.add(student2Attributes);
+
+        //list of teachers
+        InstructorAttributes instructorAttributes = new InstructorAttributes.Builder(googleId, courseId, teacherName, teacherEmail).build();
+        ArrayList<InstructorAttributes> instructorList = new ArrayList<>();
+        instructorList.add(instructorAttributes);
+
+        //course roster
+        CourseRoster roster = new CourseRoster(studentList, instructorList);
+
+        //given comment
+        FeedbackResponseCommentAttributes comment = FeedbackResponseCommentAttributes.builder(courseId, feedbackSessionName, student1Email, comment1Text).build();
+        comment.isVisibilityFollowingFeedbackQuestion = false;
+        //comment permissons
+        List<FeedbackParticipantType> showGiverNameTo = new ArrayList<>();
+        showGiverNameTo.add(FeedbackParticipantType.INSTRUCTORS);
+        comment.showGiverNameTo = showGiverNameTo;
+
+        //response
+        FeedbackResponseAttributes response = new FeedbackResponseAttributes(feedbackSessionName, courseId,
+                null, student1Email, null, student2Email, null, new FeedbackTextResponseDetails());
+
+        //random person should not see
+        assertFalse(frcLogic.isNameVisibleToUser(comment, response, "whoIsDis@email.com", roster));
+    }
+
 }

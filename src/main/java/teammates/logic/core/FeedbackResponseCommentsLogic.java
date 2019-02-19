@@ -39,7 +39,7 @@ public final class FeedbackResponseCommentsLogic {
     private static final InstructorsLogic instructorsLogic = InstructorsLogic.inst();
     private static final StudentsLogic studentsLogic = StudentsLogic.inst();
 
-    private boolean[] commentVisibleCoverage = new boolean[17];
+    private boolean[] commentVisibleCoverage = new boolean[19];
 
     private FeedbackResponseCommentsLogic() {
         // prevent initialization
