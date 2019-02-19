@@ -16,14 +16,7 @@ and the documentation on how to run the program can be found [here](https://gith
 
 
 ## Complexity (complexFunctions.md)
-1. What are your results for the ten most complex functions? (If ranking
-is not easily possible: ten complex functions)?
-   * Did all tools/methods get the same result?
-   * Are the results clear?
-2. Are the functions just complex, or also long?
-3. What is the purpose of the functions?
-4. Are exceptions taken into account in the given measurements?
-5. Is the documentation clear w.r.t. all the possible outcomes?
+Complexity report can be found [here](https://github.com/software-fundamentals/teammates/blob/coverage_improvement/complexFunctions.md)
 
 ## Coverage
 
