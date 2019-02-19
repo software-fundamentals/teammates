@@ -42,6 +42,8 @@ test setup), and the ten methods where branch coverage is measured.
 The patch is probably too long to be copied here, so please add
 the git command that is used to obtain the patch instead:
 
+Go to 'coverage' branch and execute the following command:
+
 git diff b79b7fcc4
 
 What kinds of constructs does your tool support, and how accurate is
@@ -55,7 +57,9 @@ Report of new coverage: [link]
 
 Test cases added:
 
-git diff ...
+Go to 'coverage_improvement' branch and execute the following command:
+
+git diff dc280c6
 
 ## Refactoring
 
