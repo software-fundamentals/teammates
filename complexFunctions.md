@@ -113,3 +113,33 @@ lizard does not consider. The complexity is rather high because of a large switc
 case. Additionally there are some few single ifs as well as a for loop. The complexity of the function can be reduced 
 quite a lot by a simple refactoring. For example, the switch case could be moved to its own function, reducing the 
 complexity by about 14.  
+
+
+
+## prepareData
+### Location of function
+The function can be found [here] https://github.com/software-fundamentals/teammates/blob/master/src/main/java/teammates/storage/search/FeedbackResponseCommentSearchDocument.java).
+
+### Description
+prepareData() is part of the FeedbackResponseCommentSearchDocument. It is a class designed for storing comments, for example, comments on feedback.
+The prepareData() function unfortunately has no documentation, so it is quite hard to understand exactly what it does. It basically instansiates all the fields of the FeedbackResponseCommentSearchDocument appropriately, based on the comment parameter that the class takes in the constructor. 
+
+### Complexity
+Lizard gave a CCN of 22 for the prepareData() function. This is due to it doing a lot of different things in one function. Based on the comment that the class is handling, it has a lot of different cases to deal with (If it's an instructor comment, or one by students). It works basically like a constructor for the class. The complexity could be reduced by splitting a lot of the cases into different methods, and also splitting it in multiple parts based on what it is instansiating, since it deals with multiple things in just one function. 
+
+
+## getRecipientsOfQuestion
+### Location of function
+The function can be found [here](https://github.com/software-fundamentals/teammates/blob/master/src/main/java/teammates/logic/core/FeedbackQuestionsLogic.java)
+
+### Description
+This function is very similar to the getRecipientsForQuestion method. It also checks the recipientType of the parameter "question", and then returns all appropriate recipients for the question, stored as a map<identifier,value>.
+
+### Complexity
+Lizard gave a CCN of 20. Counting by hand also gave the same number, if we don't include throw/catch statements. The function has a very high complexity because it has a big switch statement, based on the questions recipient type. For most of these cases there are also if and for statements within these cases, usually to keep the questionGiver from becoming the recipient themselves. This function could get a lower complexity if we create seperate functions for each of the cases in the big switch. Just doing this would lower the CCN to 10.
+
+
+
+
+
+
