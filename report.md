@@ -44,9 +44,10 @@ its output?
 
 ### Evaluation
 
-Report of old coverage: [link]
+Report of old coverage: [link] (https://github.com/software-fundamentals/teammates/blob/coverage_improvement/coverageLogicBefore.bmp)
 
 Report of new coverage: [link]
+(https://github.com/software-fundamentals/teammates/blob/coverage_improvement/coverageLogicAfter.bmp)
 
 Test cases added:
 
