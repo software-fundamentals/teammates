@@ -15,7 +15,7 @@ We have tested the onboarding on Windows, macOS and Unix. The setup documentatio
 and the documentation on how to run the program can be found [here](https://github.com/TEAMMATES/teammates/blob/master/docs/development.md).
 
 
-## Complexity (complexFunctions.md)
+## Complexity & ideas for refactoring (complexFunctions.md)
 Complexity report can be found [here](https://github.com/software-fundamentals/teammates/blob/coverage_improvement/complexFunctions.md)
 
 ## Coverage
@@ -54,14 +54,6 @@ Go to 'coverage_improvement' branch and execute the following command:
 
 git diff dc280c6
 
-## Refactoring
-
-Plan for refactoring complex code:
-
-Carried out refactoring (optional)
-
-git diff ...
-
 ## Effort spent
 
 For each team member, how much time was spent in
@@ -98,7 +90,7 @@ For each team member, how much time was spent in
     * Miguel - 3 hours
 
 6. writing documentation;
-    * William - 1 hour
+    * William - 1.5 hour
     * Moa - 1 hour
     * Sebastian - 0.5 hour
     * Josefin - 1.5 hours
