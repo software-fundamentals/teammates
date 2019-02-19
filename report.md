@@ -73,53 +73,53 @@ For each team member, how much time was spent in
     All team members: 6 hours were spent working/discussing/planing at plenary sessions
 
 2. discussions within parts of the group;
-    William - 20 min
-    Moa -
-    Sebastian -
-    Josefin -
-    Miguel -
+    * William - 20 min
+    * Moa - 45 min
+    * Sebastian -
+    * Josefin - 30 min
+    * Miguel -
 
 3. reading documentation;
-    William - 1 hour
-    Moa -
-    Sebastian -
-    Josefin - 2 hours
-    Miguel -
+    * William - 1 hour
+    * Moa - 1.5 hours
+    * Sebastian - 
+    * Josefin - 2 hours
+    * Miguel -
 
 4. configuration;
-    William - 1 hour
-    Moa -
-    Sebastian -
-    Josefin - 30 minutes
-    Miguel -
+    * William - 1 hour
+    * Moa - 1 hours
+    * Sebastian -
+    * Josefin - 30 minutes
+    * Miguel -
 
 5. analyzing code/output;
-    William - 3 hours
-    Moa -
-    Sebastian -
-    Josefin - 2 hours
-    Miguel -
+    * William - 3 hours
+    * Moa - 3 hours
+    * Sebastian -
+    * Josefin - 2 hours
+    * Miguel -
 
 6. writing documentation;
-    William - 1 hour
-    Moa -
-    Sebastian -
-    Josefin - 1.5 hours
-    Miguel -
+    * William - 1 hour
+    * Moa - 1 hour
+    * Sebastian -
+    * Josefin - 1.5 hours
+    * Miguel -
 
 7. writing code;
-    William - 1 hour
-    Moa -
-    Sebastian -
-    Josefin - 2 hours
-    Miguel -
+    * William - 1 hour
+    * Moa - 1.5 hours
+    * Sebastian -
+    * Josefin - 2 hours
+    * Miguel -
 
 8. running code?
-    William - only some test suites which were almost instantaneous
-    Moa -
-    Sebastian -
-    Josefin - same as William
-    Miguel -
+    * William - only some test suites which were almost instantaneous
+    * Moa - 30 min
+    * Sebastian -
+    * Josefin - same as William
+    * Miguel -
 
 ## Overall experience
 
