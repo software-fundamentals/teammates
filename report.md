@@ -83,42 +83,42 @@ For each team member, how much time was spent in
     William - 1 hour
     Moa -
     Sebastian -
-    Josefin -
+    Josefin - 2 hours
     Miguel -
 
 4. configuration;
     William - 1 hour
     Moa -
     Sebastian -
-    Josefin -
+    Josefin - 30 minutes
     Miguel -
 
 5. analyzing code/output;
     William - 3 hours
     Moa -
     Sebastian -
-    Josefin -
+    Josefin - 2 hours
     Miguel -
 
 6. writing documentation;
     William - 1 hour
     Moa -
     Sebastian -
-    Josefin -
+    Josefin - 1.5 hours
     Miguel -
 
 7. writing code;
     William - 1 hour
     Moa -
     Sebastian -
-    Josefin -
+    Josefin - 2 hours
     Miguel -
 
 8. running code?
     William - only some test suites which were almost instantaneous
     Moa -
     Sebastian -
-    Josefin -
+    Josefin - same as William
     Miguel -
 
 ## Overall experience
