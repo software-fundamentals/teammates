@@ -15,15 +15,8 @@ We have tested the onboarding on Windows, macOS and Unix. The setup documentatio
 and the documentation on how to run the program can be found [here](https://github.com/TEAMMATES/teammates/blob/master/docs/development.md).
 
 
-## Complexity (complexFunctions.md)
-1. What are your results for the ten most complex functions? (If ranking
-is not easily possible: ten complex functions)?
-   * Did all tools/methods get the same result?
-   * Are the results clear?
-2. Are the functions just complex, or also long?
-3. What is the purpose of the functions?
-4. Are exceptions taken into account in the given measurements?
-5. Is the documentation clear w.r.t. all the possible outcomes?
+## Complexity & ideas for refactoring (complexFunctions.md)
+Complexity report can be found [here](https://github.com/software-fundamentals/teammates/blob/coverage_improvement/complexFunctions.md)
 
 ## Coverage
 
@@ -42,6 +35,8 @@ test setup), and the ten methods where branch coverage is measured.
 The patch is probably too long to be copied here, so please add
 the git command that is used to obtain the patch instead:
 
+Go to 'coverage' branch and execute the following command:
+
 git diff b79b7fcc4
 
 What kinds of constructs does your tool support, and how accurate is
@@ -55,15 +50,9 @@ Report of new coverage: [link]
 
 Test cases added:
 
-git diff ...
+Go to 'coverage_improvement' branch and execute the following command:
 
-## Refactoring
-
-Plan for refactoring complex code:
-
-Carried out refactoring (optional)
-
-git diff ...
+git diff dc280c6
 
 ## Effort spent
 
@@ -101,7 +90,7 @@ For each team member, how much time was spent in
     * Miguel - 3 hours
 
 6. writing documentation;
-    * William - 1 hour
+    * William - 1.5 hour
     * Moa - 1 hour
     * Sebastian - 0.5 hour
     * Josefin - 1.5 hours

@@ -118,7 +118,7 @@ complexity by about 14.
 
 ## prepareData
 ### Location of function
-The function can be found [here] https://github.com/software-fundamentals/teammates/blob/master/src/main/java/teammates/storage/search/FeedbackResponseCommentSearchDocument.java).
+The function can be found [here](https://github.com/software-fundamentals/teammates/blob/master/src/main/java/teammates/storage/search/FeedbackResponseCommentSearchDocument.java).
 
 ### Description
 prepareData() is part of the FeedbackResponseCommentSearchDocument. It is a class designed for storing comments, for example, comments on feedback.
