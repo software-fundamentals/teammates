@@ -16,14 +16,7 @@ and the documentation on how to run the program can be found [here](https://gith
 
 
 ## Complexity (complexFunctions.md)
-1. What are your results for the ten most complex functions? (If ranking
-is not easily possible: ten complex functions)?
-   * Did all tools/methods get the same result?
-   * Are the results clear?
-2. Are the functions just complex, or also long?
-3. What is the purpose of the functions?
-4. Are exceptions taken into account in the given measurements?
-5. Is the documentation clear w.r.t. all the possible outcomes?
+Complexity report can be found [here](https://github.com/software-fundamentals/teammates/blob/coverage_improvement/complexFunctions.md)
 
 ## Coverage
 
@@ -77,53 +70,53 @@ For each team member, how much time was spent in
     All team members: 6 hours were spent working/discussing/planing at plenary sessions
 
 2. discussions within parts of the group;
-    William - 20 min
-    Moa -
-    Sebastian -
-    Josefin -
-    Miguel -
+    * William - 20 min
+    * Moa - 45 min
+    * Sebastian - 30 min
+    * Josefin - 30 min
+    * Miguel - 30 min
 
 3. reading documentation;
-    William - 1 hour
-    Moa -
-    Sebastian -
-    Josefin - 2 hours
-    Miguel -
+    * William - 1 hour
+    * Moa - 1.5 hours
+    * Sebastian - 1 hour 
+    * Josefin - 2 hours
+    * Miguel - 2 hour
 
 4. configuration;
-    William - 1 hour
-    Moa -
-    Sebastian -
-    Josefin - 30 minutes
-    Miguel -
+    * William - 1 hour
+    * Moa - 1 hours
+    * Sebastian - 1.5 hour
+    * Josefin - 30 minutes
+    * Miguel - 1 hour
 
 5. analyzing code/output;
-    William - 3 hours
-    Moa -
-    Sebastian -
-    Josefin - 2 hours
-    Miguel -
+    * William - 3 hours
+    * Moa - 3 hours
+    * Sebastian - 3 hours
+    * Josefin - 2 hours
+    * Miguel - 3 hours
 
 6. writing documentation;
-    William - 1 hour
-    Moa -
-    Sebastian -
-    Josefin - 1.5 hours
-    Miguel -
+    * William - 1 hour
+    * Moa - 1 hour
+    * Sebastian - 0.5 hour
+    * Josefin - 1.5 hours
+    * Miguel - 1 hour
 
 7. writing code;
-    William - 1 hour
-    Moa -
-    Sebastian -
-    Josefin - 2 hours
-    Miguel -
+    * William - 1 hour
+    * Moa - 1.5 hours
+    * Sebastian - 2 hour
+    * Josefin - 2 hours
+    * Miguel - 1 hour
 
 8. running code?
-    William - only some test suites which were almost instantaneous
-    Moa -
-    Sebastian -
-    Josefin - same as William
-    Miguel -
+    * William - only some test suites which were almost instantaneous
+    * Moa - 30 min
+    * Sebastian - 30 min
+    * Josefin - same as William
+    * Miguel - 25 min
 
 ## Overall experience
 
